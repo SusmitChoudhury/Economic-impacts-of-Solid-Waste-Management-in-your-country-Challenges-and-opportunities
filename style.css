@@ -1,0 +1,1122 @@
+/* --- Global Reset & Variables --- */
+:root {
+    --primary-green: #228B22;   /* Forest Green */
+    --secondary-green: #2E8B57; /* Sea Green */
+    --light-green: #e9f5ea;     /* Very Light Green Background */
+    --dark-text: #333333;
+    --light-text: #ffffff;
+    --accent-color: #DAA520;    /* Goldenrod for accents */
+    --transition: all 0.3s ease-in-out;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Open Sans', sans-serif;
+    line-height: 1.6;
+    color: var(--dark-text);
+    background-color: #fff;
+    overflow-x: hidden;
+}
+
+h1, h2, h3 {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+ul {
+    list-style: none;
+}
+
+/* 5️⃣ UI Polish: Scroll Progress Bar */
+#scroll-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 4px;
+    background: var(--accent-color);
+    width: 0%;
+    z-index: 1002;
+    transition: width 0.1s;
+}
+
+/* --- Navigation Bar --- */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 5%;
+    background-color: #fff;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary-green);
+}
+
+.logo .highlight {
+    color: var(--secondary-green);
+}
+
+.nav-links {
+    display: flex;
+    gap: 2rem;
+}
+
+.nav-links a {
+    font-weight: 600;
+    color: var(--dark-text);
+    transition: var(--transition);
+    position: relative;
+}
+
+/* Navbar Hover Underline Animation */
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -5px;
+    left: 0;
+    background-color: var(--primary-green);
+    transition: width 0.3s;
+}
+.nav-links a:hover::after {
+    width: 100%;
+}
+
+.nav-links a:hover {
+    color: var(--primary-green);
+}
+
+.hamburger {
+    display: none;
+    cursor: pointer;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.hamburger .line {
+    width: 25px;
+    height: 3px;
+    background-color: var(--primary-green);
+    transition: var(--transition);
+}
+
+/* --- Hero Section --- */
+.hero {
+    height: 100vh;
+    background: url('/mnt/data/153becc7-ba04-437e-a5af-071d71c286eb.png') no-repeat center center/cover;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: var(--light-text);
+    overflow: hidden;
+    animation: zoomHero 20s infinite alternate;
+}
+
+@keyframes zoomHero {
+    0% { background-position: center; background-size: 100%; }
+    100% { background-position: center; background-size: 110%; }
+}
+
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 1;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 800px;
+    padding: 0 20px;
+}
+
+.hero-content h1 {
+    font-size: 3.5rem;
+    margin-bottom: 1rem;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+}
+
+.hero-content p {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+}
+
+/* 5️⃣ UI Polish: Floating Icons Animation */
+.floating-icons {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    pointer-events: none;
+}
+
+.floating-icons i {
+    position: absolute;
+    color: rgba(255,255,255,0.3);
+    font-size: 3rem;
+    animation: float 6s ease-in-out infinite;
+}
+
+.float-1 { top: 20%; left: 10%; animation-delay: 0s; }
+.float-2 { top: 60%; right: 15%; animation-delay: 2s; }
+.float-3 { bottom: 10%; left: 30%; animation-delay: 4s; }
+.float-4 { top: 15%; right: 25%; animation-delay: 1.5s; font-size: 2rem; opacity: 0.5; }
+
+@keyframes float {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-20px); }
+    100% { transform: translateY(0); }
+}
+
+/* 5️⃣ UI Polish: Ripple Button Effect */
+.cta-button {
+    padding: 12px 30px;
+    background-color: var(--primary-green);
+    color: #fff;
+    border-radius: 30px;
+    font-weight: 600;
+    transition: var(--transition);
+    border: 2px solid var(--primary-green);
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+}
+
+.cta-button:hover {
+    background-color: transparent;
+    border-color: #fff;
+    box-shadow: 0 0 15px rgba(255,255,255,0.5);
+}
+
+.ripple-btn::after {
+    content: "";
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    background-image: radial-gradient(circle, #fff 10%, transparent 10.01%);
+    background-repeat: no-repeat;
+    background-position: 50%;
+    transform: scale(10, 10);
+    opacity: 0;
+    transition: transform .5s, opacity 1s;
+}
+
+.ripple-btn:active::after {
+    transform: scale(0, 0);
+    opacity: .3;
+    transition: 0s;
+}
+
+/* --- Stats Strip --- */
+.stats-strip {
+    display: flex;
+    justify-content: space-around;
+    background-color: var(--primary-green);
+    color: #fff;
+    padding: 3rem 1rem;
+    flex-wrap: wrap;
+}
+
+.stat-item {
+    text-align: center;
+    margin: 10px;
+}
+
+.stat-item h2 {
+    font-size: 3rem;
+    display: inline-block;
+}
+
+.stat-item span {
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+/* --- General Section Styles --- */
+.section-padding {
+    padding: 5rem 10%;
+}
+
+.bg-light {
+    background-color: var(--light-green);
+}
+
+.bg-dark {
+    background-color: #1a1a1a;
+}
+
+.section-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.section-header h2 {
+    font-size: 2.5rem;
+    color: var(--primary-green);
+}
+
+.text-white .section-header h2 {
+    color: #fff;
+}
+
+.underline {
+    width: 80px;
+    height: 4px;
+    background-color: var(--accent-color);
+    margin: 10px auto 0;
+}
+
+.white-line {
+    background-color: var(--primary-green);
+}
+
+/* --- Problem Section --- */
+.content-split {
+    display: flex;
+    align-items: center;
+    gap: 3rem;
+    flex-wrap: wrap;
+}
+
+.text-block, .image-block {
+    flex: 1;
+    min-width: 300px;
+}
+
+.text-block p {
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+}
+
+.image-block img {
+    width: 100%;
+    border-radius: 10px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+}
+
+/* 1️⃣ Updated Map Image Section */
+.map-image-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 3rem;
+}
+
+.img-frame {
+    position: relative;
+    max-width: 800px;
+    width: 100%;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 15px 35px rgba(34, 139, 34, 0.2); /* Eco shadow */
+    border: 3px solid var(--primary-green);
+}
+
+.waste-map-img {
+    width: 100%;
+    height: auto;
+    display: block;
+    transition: transform 0.5s ease;
+}
+
+.img-frame:hover .waste-map-img {
+    transform: scale(1.05); /* Hover Zoom */
+}
+
+.caption {
+    margin-top: 10px;
+    font-style: italic;
+    color: #555;
+    font-weight: 600;
+}
+
+/* 2️⃣ Map Data Explanation Cards */
+.map-data-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+/* 1️⃣ Base Typography & Layout Improvements */
+.data-card {
+    /* Switch from white background to colored backgrounds via specific classes below */
+    border: none; 
+    transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), 
+                filter 0.3s ease, 
+                box-shadow 0.3s ease;
+    padding: 1.5rem;
+    border-radius: 10px;
+    position: relative;
+    overflow: hidden;
+}
+
+.data-card h3 {
+    font-weight: 800; /* Increased weight for hierarchy */
+    letter-spacing: 0.5px; /* Slight spacing for readability */
+    margin-bottom: 12px;
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    /* Soft text shadow for depth */
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+}
+
+.data-card p {
+    font-size: 1rem;
+    line-height: 1.6; /* Improved line height for reading */
+    font-weight: 500;
+    margin-bottom: 8px;
+}
+
+/* Hide the old color band since the whole card is now colored */
+.data-card .color-band {
+    display: none;
+}
+
+/* 2️⃣ 🟢 Low Waste (Green) - High Contrast White Text */
+.data-card.green {
+    background-color: #2e7d32; /* Deep Material Green */
+}
+
+.data-card.green h3 {
+    color: #ffffff !important;
+}
+
+.data-card.green p {
+    color: #e8f5e9; /* Light Mint/Neutral */
+}
+
+.data-card.green strong {
+    color: #ffffff; /* Brighter white for "States:" label */
+    font-weight: 700;
+}
+
+/* 3️⃣ 🟡 Moderate (Yellow) - Dark Text for Readability */
+.data-card.yellow {
+    background-color: #fdd835; /* Bright Warning Yellow */
+}
+
+.data-card.yellow h3 {
+    color: #212121 !important; /* Dark Charcoal - High Contrast */
+    text-shadow: none; /* Remove shadow on dark text for clarity */
+}
+
+.data-card.yellow p {
+    color: #37474f; /* Deep Blue-Gray */
+}
+
+.data-card.yellow strong {
+    color: #000000; /* Pure black for emphasis */
+}
+
+/* 4️⃣ 🟠 High (Orange) - White Text on Saturated BG */
+.data-card.orange {
+    background-color: #ef6c00; /* Rich Orange */
+}
+
+.data-card.orange h3 {
+    color: #ffffff !important;
+}
+
+.data-card.orange p {
+    color: #fff3e0; /* Off-white for paragraphs */
+}
+
+.data-card.orange strong {
+    color: #ffffff;
+}
+
+/* 5️⃣ 🔴 Critical (Red) - Urgent Styling */
+.data-card.red {
+    background-color: #c62828; /* Deep Alert Red */
+}
+
+.data-card.red h3 {
+    color: #ffffff !important;
+}
+
+.data-card.red p {
+    color: #ffebee; /* Very light gray/pink tint */
+}
+
+.data-card.red strong {
+    color: #ffffff;
+    /* Subtle glow for the critical numbers */
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5); 
+}
+
+/* 6️⃣ Interactive Hover Effects (CSS Only) */
+.data-card:hover {
+    filter: brightness(1.08); /* Slight brightness boost */
+    transform: translateY(-8px); /* Smooth elevation */
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2); /* Deep eco-shadow */
+}
+
+/* 3️⃣ Feature Explanation Grid */
+.feature-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+}
+
+.feature-card {
+    background: #fff;
+    padding: 2rem;
+    border-radius: 12px;
+    text-align: center;
+    border: 1px solid #eee;
+    transition: var(--transition);
+}
+
+.feature-card:hover {
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    border-color: var(--primary-green);
+}
+
+.f-icon {
+    font-size: 2.5rem;
+    color: var(--secondary-green);
+    margin-bottom: 1.5rem;
+}
+
+/* --- Causes Cards --- */
+.cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+}
+
+.card {
+    background: #fff;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    text-align: center;
+    transition: var(--transition);
+    border-bottom: 4px solid transparent;
+}
+
+.card:hover {
+    transform: translateY(-10px);
+    border-bottom: 4px solid var(--primary-green);
+}
+
+.card-icon {
+    font-size: 3rem;
+    color: var(--primary-green);
+    margin-bottom: 1.5rem;
+}
+
+.card h3 {
+    margin-bottom: 1rem;
+}
+
+/* 4️⃣ Improved Government Schemes */
+.scheme-card {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 15px;
+    text-align: center;
+    border: 1px solid #ddd;
+    transition: var(--transition);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.scheme-card:hover {
+    box-shadow: 0 10px 20px rgba(34, 139, 34, 0.2);
+    border-color: var(--primary-green);
+    transform: translateY(-5px);
+}
+
+.scheme-icon {
+    background: var(--light-green);
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1rem;
+    color: var(--primary-green);
+    font-size: 1.5rem;
+    transition: transform 0.3s;
+}
+
+.scheme-card:hover .scheme-icon {
+    transform: rotate(360deg);
+}
+
+.scheme-details {
+    font-size: 0.9rem;
+    color: #666;
+    margin-top: 10px;
+    background: #f9f9f9;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.read-more-btn {
+    background: none;
+    border: none;
+    color: var(--accent-color);
+    cursor: pointer;
+    font-weight: bold;
+    margin: 10px 0;
+    text-decoration: underline;
+}
+
+.official-link {
+    display: inline-block;
+    padding: 8px 15px;
+    background: var(--primary-green);
+    color: white;
+    border-radius: 20px;
+    margin-top: 10px;
+    font-size: 0.85rem;
+    transition: background 0.3s;
+}
+
+.official-link:hover {
+    background: var(--secondary-green);
+}
+
+/* --- Economic Impact --- */
+.impact-layout {
+    display: flex;
+    gap: 3rem;
+    flex-wrap: wrap;
+}
+
+.impact-text {
+    flex: 1;
+}
+
+.impact-chart {
+    flex: 1;
+    min-width: 300px;
+    background: #f9f9f9;
+    padding: 2rem;
+    border-radius: 10px;
+    border: 1px solid #eee;
+}
+
+.impact-list li {
+    display: flex;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.impact-list i {
+    font-size: 2rem;
+    color: #d9534f; /* Red for negative impact */
+    min-width: 40px;
+}
+
+.chart-container h3 {
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.bar-group {
+    margin-bottom: 1.5rem;
+}
+
+.bar-label {
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+}
+
+.bar {
+    height: 30px;
+    background-color: var(--primary-green);
+    color: #fff;
+    text-align: right;
+    padding-right: 10px;
+    line-height: 30px;
+    border-radius: 5px;
+    font-size: 0.9rem;
+    transition: width 1s ease-out;
+}
+
+.chart-caption {
+    font-size: 0.9rem;
+    font-style: italic;
+    color: #666;
+    text-align: center;
+    margin-top: 1rem;
+}
+
+/* --- Solutions Cards --- */
+.solutions-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.sol-card {
+    background: #2a2a2a;
+    border-radius: 10px;
+    overflow: hidden;
+    transition: var(--transition);
+}
+
+.sol-card:hover {
+    transform: scale(1.03);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+}
+
+.sol-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.sol-content {
+    padding: 1.5rem;
+    color: #ddd;
+}
+
+.sol-content h3 {
+    color: var(--primary-green);
+    margin-bottom: 0.5rem;
+}
+
+/* 2️⃣ Improved Games Section */
+.game-wrapper {
+    background: white;
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    margin-bottom: 2rem;
+    text-align: center;
+    position: relative;
+}
+.score-board {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: var(--accent-color);
+    margin: 10px 0;
+}
+.waste-items-container {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 20px;
+    min-height: 60px;
+}
+.waste-item {
+    font-size: 2rem;
+    cursor: grab;
+    transition: transform 0.2s;
+}
+.waste-item:active { cursor: grabbing; transform: scale(1.2); }
+
+.dustbins-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+.dustbin {
+    width: 100px;
+    height: 120px;
+    border-radius: 5px;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    transition: transform 0.2s;
+}
+.dustbin.shake { animation: shake 0.5s; }
+@keyframes shake {
+  0% { transform: translate(1px, 1px) rotate(0deg); }
+  10% { transform: translate(-1px, -2px) rotate(-1deg); }
+  20% { transform: translate(-3px, 0px) rotate(1deg); }
+  30% { transform: translate(3px, 2px) rotate(0deg); }
+  40% { transform: translate(1px, -1px) rotate(1deg); }
+  50% { transform: translate(-1px, 2px) rotate(-1deg); }
+  60% { transform: translate(-3px, 1px) rotate(0deg); }
+  70% { transform: translate(3px, 1px) rotate(-1deg); }
+  80% { transform: translate(-1px, -1px) rotate(1deg); }
+  90% { transform: translate(1px, 2px) rotate(0deg); }
+  100% { transform: translate(1px, -2px) rotate(-1deg); }
+}
+
+.dustbin i { font-size: 2rem; margin-bottom: 5px; pointer-events: none; }
+.green { background-color: #4CAF50; }
+.blue { background-color: #2196F3; }
+.yellow { background-color: #FFC107; color: #333; }
+.red { background-color: #F44336; }
+
+.divider { border: 0; border-top: 1px solid #ddd; margin: 3rem 0; }
+
+/* Clean Game UI HUD */
+.game-hud {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    padding: 0 10px;
+}
+
+.timer-box {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #333;
+    background: #eee;
+    padding: 5px 15px;
+    border-radius: 20px;
+}
+
+#restart-game-btn {
+    padding: 5px 15px;
+    border: none;
+    background: #333;
+    color: white;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+/* Clean Game Area */
+.clean-game-area {
+    width: 100%;
+    height: 300px;
+    background-color: #8db600; /* Grass color */
+    background-image: radial-gradient(#9bc400 20%, transparent 20%);
+    background-size: 20px 20px;
+    position: relative;
+    border-radius: 10px;
+    overflow: hidden;
+    cursor: crosshair;
+}
+.garbage-piece {
+    position: absolute;
+    font-size: 24px;
+    cursor: pointer;
+    transition: transform 0.1s;
+    animation: floatTrash 2s ease-in-out infinite alternate;
+}
+@keyframes floatTrash {
+    from { transform: translateY(0); }
+    to { transform: translateY(-5px); }
+}
+
+.progress-container {
+    width: 100%;
+    background: #ddd;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    height: 20px;
+    overflow: hidden;
+}
+.progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, #FFC107, #228B22);
+    width: 0%;
+    border-radius: 10px;
+    transition: width 0.3s;
+}
+
+.win-message {
+    display: none;
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(255,255,255,0.95);
+    padding: 30px;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    z-index: 20;
+    animation: popIn 0.5s ease-out;
+}
+.start-overlay {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+}
+.hidden-overlay { display: none; }
+
+@keyframes popIn {
+    0% { transform: translate(-50%, -50%) scale(0.5); opacity: 0; }
+    100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+}
+
+/* --- Certificate Section --- */
+.cert-wrapper {
+    max-width: 600px;
+    margin: 0 auto;
+    text-align: center;
+}
+.glass-form {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 30px;
+    border-radius: 15px;
+}
+
+#cert-form input {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border-radius: 5px;
+    border: none;
+    background: rgba(255,255,255,0.9);
+}
+.hidden { display: none; }
+
+/* Modal Styles */
+.modal-overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.8);
+    z-index: 2000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s;
+}
+.modal-overlay.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+.modal-content {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    max-width: 90%;
+    position: relative;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+}
+.close-modal {
+    position: absolute;
+    top: 10px; right: 15px;
+    font-size: 30px;
+    cursor: pointer;
+    color: #333;
+}
+canvas {
+    max-width: 100%;
+    border: 1px solid #ddd;
+    margin-top: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+.modal-actions { margin-top: 15px; }
+
+/* Toast */
+.toast {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: var(--primary-green);
+    color: white;
+    padding: 15px 25px;
+    border-radius: 5px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    z-index: 3000;
+    animation: slideIn 0.5s forwards;
+}
+@keyframes slideIn {
+    from { transform: translateX(100%); }
+    to { transform: translateX(0); }
+}
+
+/* --- Future & Conclusion --- */
+.future-content {
+    font-size: 1.2rem;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.conclusion-banner {
+    background-color: var(--primary-green);
+    color: #fff;
+    text-align: center;
+    padding: 4rem 1rem;
+}
+
+.conclusion-banner h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+/* --- Footer --- */
+footer {
+    background-color: #111;
+    color: #aaa;
+    padding: 3rem 5% 1rem;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 2rem;
+    margin-bottom: 2rem;
+    border-bottom: 1px solid #333;
+    padding-bottom: 2rem;
+}
+
+.footer-section h3 {
+    color: #fff;
+    margin-bottom: 1rem;
+}
+
+.footer-section ul li {
+    margin-bottom: 0.5rem;
+}
+
+.footer-section ul li a:hover {
+    color: var(--primary-green);
+}
+
+.footer-bottom {
+    text-align: center;
+    font-size: 0.9rem;
+}
+
+/* --- Animations --- */
+.fade-in { opacity: 0; animation: fadeIn 1s forwards; }
+.fade-up { opacity: 0; transform: translateY(30px); transition: all 0.8s ease-out; }
+.slide-left { opacity: 0; transform: translateX(-50px); transition: all 0.8s ease-out; }
+.slide-right { opacity: 0; transform: translateX(50px); transition: all 0.8s ease-out; }
+
+.delay-1 { transition-delay: 0.2s; animation-delay: 0.2s; }
+.delay-2 { transition-delay: 0.4s; animation-delay: 0.4s; }
+.delay-3 { transition-delay: 0.6s; animation-delay: 0.6s; }
+
+.visible { opacity: 1; transform: translateY(0) translateX(0); }
+
+@keyframes fadeIn {
+    to { opacity: 1; }
+}
+
+/* ========================================= */
+/* 📱 MOBILE OPTIMIZATION & RESPONSIVENESS */
+/* ========================================= */
+
+@media (max-width: 768px) {
+    /* 1. Typography Scaling */
+    html { font-size: 90%; }
+    
+    .hero-content h1 { font-size: 2.5rem; }
+    .hero-content p { font-size: 1rem; }
+    .section-header h2 { font-size: 2rem; }
+
+    /* 2. Navigation Mobile View */
+    .navbar { padding: 1rem; }
+    .hamburger { display: flex; z-index: 1001; }
+    
+    .nav-links {
+        display: none; /* Hidden by default */
+        position: absolute;
+        top: 70px;
+        right: 0;
+        width: 100%;
+        background-color: white;
+        flex-direction: column;
+        align-items: center;
+        gap: 1.5rem;
+        padding: 2rem 0;
+        box-shadow: 0 10px 10px rgba(0,0,0,0.1);
+        z-index: 1000;
+    }
+
+    /* Class to show menu when toggled via JS */
+    .nav-links.active {
+        display: flex;
+    }
+
+    /* 3. Hero Adjustments */
+    .hero { height: 90vh; }
+    .floating-icons i { font-size: 2rem; }
+
+    /* 4. Section & Grid Stacking */
+    .section-padding { padding: 3rem 5%; }
+    
+    .content-split { flex-direction: column; text-align: center; }
+    .image-block { margin-top: 2rem; width: 100%; }
+    
+    .impact-layout { flex-direction: column; }
+    .impact-list li { flex-direction: column; text-align: center; align-items: center; }
+    
+    .stats-strip { flex-direction: column; gap: 2rem; padding: 2rem 1rem; }
+
+    /* 5. Grid Systems to Single Column */
+    .cards-grid, 
+    .solutions-container, 
+    .feature-grid, 
+    .map-data-grid {
+        grid-template-columns: 1fr;
+    }
+
+    /* 6. Game Section Adjustments */
+    .game-hud { flex-direction: column; gap: 10px; }
+    .waste-items-container { gap: 10px; flex-wrap: wrap; }
+    .waste-item { font-size: 2.5rem; } /* Larger touch targets */
+    .dustbin { width: 45%; margin-bottom: 10px; }
+    .clean-game-area { height: 250px; } /* Slightly smaller on mobile */
+    
+    /* 7. Footer Stacking */
+    .footer-content { flex-direction: column; text-align: center; gap: 2rem; }
+    
+    /* 8. Map & Image Responsiveness */
+    .img-frame { max-width: 100%; }
+    #india-map { height: auto; max-height: 400px; }
+}
+
+@media (max-width: 480px) {
+    /* Small Phone Adjustments */
+    .hero-content h1 { font-size: 2rem; }
+    .stat-item h2 { font-size: 2.5rem; }
+    
+    /* Ensure modal fits small screens */
+    .modal-content { padding: 15px; width: 95%; }
+    canvas { height: auto; } /* Ensure certificate canvas scales */
+}
