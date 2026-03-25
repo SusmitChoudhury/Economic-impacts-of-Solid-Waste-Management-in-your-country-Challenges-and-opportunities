@@ -1,4 +1,5 @@
 /* --- Global Reset & Variables --- */
+@import url('https://fonts.googleapis.com/css2?family=Paytone+One&display=swap');
 :root {
     --primary-green: #228B22;   /* Forest Green */
     --secondary-green: #2E8B57; /* Sea Green */
@@ -65,17 +66,34 @@ ul {
     top: 0;
     z-index: 1000;
 }
-
-.logo {
-    font-size: 1.5rem;
-    font-weight: 700;
+/* --- Updated Thick Cool Logo --- */
+.navbar .logo {
+    font-family: 'Paytone One', sans-serif;
+    font-size: 2.4rem; /* Made it big */
+    font-weight: 400; /* Paytone One is naturally very thick */
     color: var(--primary-green);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    text-shadow: 2px 2px 0px rgba(46, 139, 87, 0.2); /* Cool solid shadow effect */
+    transition: transform 0.3s ease;
+}
+
+.navbar .logo:hover {
+    transform: scale(1.05); /* Slight pop-out effect when hovered */
 }
 
 .logo .highlight {
-    color: var(--secondary-green);
+    color: var(--accent-color); /* Changed to yellow/gold for a cooler pop of color */
 }
 
+.logo i {
+    font-size: 2.2rem;
+    color: var(--primary-green);
+    filter: drop-shadow(2px 2px 0px rgba(46, 139, 87, 0.2));
+}
 .nav-links {
     display: flex;
     gap: 2rem;
@@ -884,7 +902,29 @@ ul {
     100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
 }
 
-/* --- Certificate Section --- */
+/* --- Certificate & Form Section --- */
+.tabs-container {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.tab-btn {
+    background: transparent;
+    border: 2px solid var(--primary-green);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 30px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: var(--transition);
+}
+
+.tab-btn.active, .tab-btn:hover {
+    background: var(--primary-green);
+}
+
 .cert-wrapper {
     max-width: 600px;
     margin: 0 auto;
@@ -898,14 +938,67 @@ ul {
     border-radius: 15px;
 }
 
-#cert-form input {
+.tab-content {
+    display: none;
+}
+.tab-content.active {
+    display: block;
+    animation: fadeIn 0.5s ease-in;
+}
+
+#cert-form input, 
+#cert-form select, 
+#project-form input, 
+#project-form textarea,
+#project-form select {
     width: 100%;
     padding: 12px;
     margin: 10px 0;
     border-radius: 5px;
     border: none;
     background: rgba(255,255,255,0.9);
+    font-family: inherit;
 }
+
+.form-row {
+    display: flex;
+    gap: 10px;
+}
+.form-row select, .form-row input {
+    flex: 1;
+}
+
+/* File Upload Styling */
+.file-upload {
+    margin: 15px 0;
+    text-align: left;
+}
+
+.file-upload input[type="file"] {
+    display: none;
+}
+
+.custom-file-label {
+    display: inline-block;
+    padding: 10px 15px;
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    border: 1px dashed white;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: var(--transition);
+    margin-right: 10px;
+}
+
+.custom-file-label:hover {
+    background: rgba(255, 255, 255, 0.4);
+}
+
+#file-name, #proj-file-name {
+    color: #ccc;
+    font-size: 0.9rem;
+}
+
 .hidden { display: none; }
 
 /* Modal Styles */
@@ -948,6 +1041,16 @@ canvas {
     box-shadow: 0 5px 15px rgba(0,0,0,0.1);
 }
 .modal-actions { margin-top: 15px; }
+
+/* Success Modal specific styles */
+.success-modal {
+    padding: 40px;
+}
+.success-icon {
+    font-size: 4rem;
+    color: var(--primary-green);
+    margin-bottom: 20px;
+}
 
 /* Toast */
 .toast {
@@ -1044,7 +1147,13 @@ footer {
 @media (max-width: 768px) {
     /* 1. Typography Scaling */
     html { font-size: 90%; }
-    
+    /* Mobile Logo Scaling */
+    .navbar .logo { 
+        font-size: 1.8rem; 
+    }
+    .logo i { 
+        font-size: 1.6rem; 
+    }
     .hero-content h1 { font-size: 2.5rem; }
     .hero-content p { font-size: 1rem; }
     .section-header h2 { font-size: 2rem; }
@@ -1095,6 +1204,8 @@ footer {
     .map-data-grid {
         grid-template-columns: 1fr;
     }
+    
+    .form-row { flex-direction: column; gap: 0; }
 
     /* 6. Game Section Adjustments */
     .game-hud { flex-direction: column; gap: 10px; }
@@ -1108,7 +1219,6 @@ footer {
     
     /* 8. Map & Image Responsiveness */
     .img-frame { max-width: 100%; }
-    #india-map { height: auto; max-height: 400px; }
 }
 
 @media (max-width: 480px) {

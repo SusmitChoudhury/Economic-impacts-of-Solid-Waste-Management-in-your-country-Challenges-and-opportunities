@@ -9,6 +9,14 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('scroll-progress').style.width = progress + "%";
     });
 
+    // --- Mobile Menu Toggle ---
+    const hamburger = document.querySelector('.hamburger');
+    const navLinksContainer = document.querySelector('.nav-links');
+
+    hamburger.addEventListener('click', () => {
+        navLinksContainer.classList.toggle('active');
+    });
+
     // --- 1. Smooth Scrolling for Navigation Links ---
     const navLinks = document.querySelectorAll('.nav-links a');
     const ctaButton = document.querySelector('.cta-button');
@@ -24,6 +32,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 top: targetSection.offsetTop - 70, // Adjust for sticky navbar height
                 behavior: 'smooth'
             });
+            // Close mobile menu if open
+            if(navLinksContainer.classList.contains('active')){
+                navLinksContainer.classList.remove('active');
+            }
         }
     };
 
@@ -207,6 +219,8 @@ document.addEventListener('DOMContentLoaded', () => {
         gameActive = false;
         clearInterval(gameTimer);
         if (won) {
+            // Did not use the string replacement here as it uses innerHTML which removes the original text. The original HTML has the correct "Clean India" string.
+            // However, the original code overwrote it. I'll maintain the structure but fix the text.
             winMsg.innerHTML = `<h3><i class="fas fa-trophy"></i> Outstanding!</h3><p>Area Cleaned in ${60 - timeLeft}s!</p>`;
             winMsg.style.display = 'block';
             fireConfetti();
@@ -241,16 +255,48 @@ document.addEventListener('DOMContentLoaded', () => {
     restartBtn.addEventListener('click', initCleanGame);
 
 
-    // --- 1️⃣ Premium Certificate Generator ---
+    // --- TABS LOGIC ---
+    const tabBtns = document.querySelectorAll('.tab-btn');
+    const tabContents = document.querySelectorAll('.tab-content');
+
+    tabBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            // Remove active class from all buttons and contents
+            tabBtns.forEach(b => b.classList.remove('active'));
+            tabContents.forEach(c => c.classList.remove('active'));
+
+            // Add active class to clicked button and target content
+            btn.classList.add('active');
+            document.querySelector(`[data-content="${btn.dataset.tab}"]`).classList.add('active');
+        });
+    });
+
+    // File input name update logic
+    document.getElementById('volunteer-proof').addEventListener('change', function(e) {
+        let fileName = e.target.files[0] ? e.target.files[0].name : "No file chosen";
+        document.getElementById('file-name').textContent = fileName;
+    });
+
+    document.getElementById('project-proof').addEventListener('change', function(e) {
+        let fileName = e.target.files[0] ? e.target.files[0].name : "No file chosen";
+        document.getElementById('proj-file-name').textContent = fileName;
+    });
+
+
+    // --- 1️⃣ Premium Certificate Generator (Volunteer) ---
     const certForm = document.getElementById('cert-form');
     const modal = document.getElementById('cert-modal');
-    const closeModal = document.querySelector('.close-modal');
+    const closeModal = document.querySelectorAll('.close-modal');
     const toast = document.getElementById('toast');
 
     certForm.addEventListener('submit', function(e) {
         e.preventDefault();
         const name = document.getElementById('volunteer-name').value;
+        const state = document.getElementById('volunteer-state').value;
+        const city = document.getElementById('volunteer-city').value;
+        const wasteType = document.getElementById('waste-type').value;
         const kg = document.getElementById('waste-kg').value;
+        
         const canvas = document.getElementById('cert-canvas');
         const ctx = canvas.getContext('2d');
         const downloadBtn = document.getElementById('download-btn');
@@ -284,11 +330,11 @@ document.addEventListener('DOMContentLoaded', () => {
         ctx.fillStyle = "#1a5e3a";
         ctx.textAlign = "center";
         ctx.font = "bold 50px Montserrat";
-        ctx.fillText("GREEN INDIA INITIATIVE", 400, 110);
+        ctx.fillText("CLEAN INDIA INITIATIVE", 400, 110);
         
-        ctx.font = "italic 30px 'Great Vibes', serif"; // Hand-written style font fallback
+        ctx.font = "italic 30px 'Great Vibes', serif"; 
         ctx.fillStyle = "#DAA520";
-        ctx.fillText("Certificate of Appreciation", 400, 160);
+        ctx.fillText("Certificate of Volunteer Pledging", 400, 160);
         
         ctx.fillStyle = "#333";
         ctx.font = "20px Open Sans";
@@ -302,10 +348,10 @@ document.addEventListener('DOMContentLoaded', () => {
         ctx.fillText(name, 400, 300);
         ctx.shadowBlur = 0; // Reset shadow
         
-        ctx.font = "20px Open Sans";
+        ctx.font = "18px Open Sans";
         ctx.fillStyle = "#333";
-        ctx.fillText(`For outstanding contribution in collecting ${kg} kg of waste.`, 400, 360);
-        ctx.fillText("You are officially a Green India Volunteer!", 400, 400);
+        ctx.fillText(`For successfully collecting ${kg} kg of ${wasteType} in ${city}, ${state}.`, 400, 360);
+        ctx.fillText("You are officially a Clean India Volunteer!", 400, 400);
 
         // Gold Stars
         let stars = 1;
@@ -339,7 +385,7 @@ document.addEventListener('DOMContentLoaded', () => {
         ctx.fillText(`Date: ${date}`, 575, 540);
         
         // Unique ID
-        const certID = "GID-" + Math.floor(Math.random() * 1000000);
+        const certID = "CID-" + Math.floor(Math.random() * 1000000);
         ctx.font = "12px monospace";
         ctx.fillStyle = "#999";
         ctx.fillText(`ID: ${certID}`, 400, 580);
@@ -350,25 +396,49 @@ document.addEventListener('DOMContentLoaded', () => {
         // Setup Download
         downloadBtn.onclick = function() {
             const link = document.createElement('a');
-            link.download = `Green_India_Certificate_${name}.png`;
+            link.download = `Clean_India_Certificate_${name}.png`;
             link.href = canvas.toDataURL("image/png");
             link.click();
             
             // Show Toast
             modal.classList.remove('active');
+            toast.innerText = "Certificate Downloaded Successfully!";
             toast.classList.remove('hidden');
             setTimeout(() => toast.classList.add('hidden'), 3000);
+            certForm.reset();
+            document.getElementById('file-name').textContent = "No file chosen";
         };
     });
 
-    closeModal.addEventListener('click', () => {
-        modal.classList.remove('active');
+    // --- Project Submission Logic ---
+    const projectForm = document.getElementById('project-form');
+    const projectSuccessModal = document.getElementById('project-success-modal');
+
+    projectForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        // Show Success Modal
+        projectSuccessModal.classList.add('active');
+        
+        // Reset form
+        projectForm.reset();
+        document.getElementById('proj-file-name').textContent = "No file chosen";
+    });
+
+    closeModal.forEach(btn => {
+        btn.addEventListener('click', () => {
+            modal.classList.remove('active');
+            projectSuccessModal.classList.remove('active');
+        });
     });
 
     // Close modal on click outside
     window.addEventListener('click', (e) => {
         if (e.target == modal) {
             modal.classList.remove('active');
+        }
+        if (e.target == projectSuccessModal) {
+            projectSuccessModal.classList.remove('active');
         }
     });
 

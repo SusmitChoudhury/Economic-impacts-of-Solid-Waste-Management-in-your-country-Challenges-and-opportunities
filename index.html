@@ -15,12 +15,13 @@
 
     <nav class="navbar">
         <div class="logo">
-            <i class="fas fa-leaf"></i> Green<span class="highlight">India</span>
+            <i class="fas fa-trash-alt"></i> <b>Clean</b><span class="highlight"><b>India</b></span>
         </div>
         <ul class="nav-links">
             <li><a href="#home">Home</a></li>
             <li><a href="#problem">The Problem</a></li>
-            <li><a href="#map-section">Map Data</a></li> <li><a href="#schemes">Schemes</a></li>
+            <li><a href="#map-section">Map Data</a></li> 
+            <li><a href="#schemes">Schemes</a></li>
             <li><a href="#impact">Economic Impact</a></li>
             <li><a href="#games">Take Action</a></li>
             <li><a href="#certificate">Join Us</a></li>
@@ -371,7 +372,7 @@
                     </div>
                     <div class="win-message" id="clean-win-msg">
                         <h3><i class="fas fa-trophy"></i> Mission Accomplished!</h3>
-                        <p>You helped build a Green India!</p>
+                        <p>You helped build a Clean India!</p>
                     </div>
                 </div>
             </div>
@@ -395,20 +396,109 @@
     <section id="certificate" class="section-padding bg-dark">
         <div class="container">
             <div class="section-header text-white">
-                <h2>Become a Green India Volunteer</h2>
+                <h2>Become a Clean India Volunteer</h2>
                 <div class="underline white-line"></div>
-                <p style="color: #ccc;">Commit to the cause and get your Certified Badge.</p>
+                <p style="color: #ccc;">Commit to the cause, submit a project, and get your Certified Badge.</p>
             </div>
+            
+            <div class="tabs-container fade-up">
+                <button class="tab-btn active" data-tab="volunteer-tab">Volunteer Certificate</button>
+                <button class="tab-btn" data-tab="project-tab">Submit a Project</button>
+            </div>
+
             <div class="cert-wrapper">
-                <form id="cert-form" class="fade-up glass-form">
+                <form id="cert-form" class="glass-form tab-content active" data-content="volunteer-tab">
                     <input type="text" id="volunteer-name" placeholder="Full Name" required>
-                    <input type="tel" id="volunteer-phone" placeholder="Phone Number" required>
-                    <input type="number" id="waste-kg" placeholder="Waste Cleaned/Recycled (kg)" required>
+                    <div class="form-row">
+                        <select id="volunteer-state" required>
+                            <option value="">Select State</option>
+                            <option value="Andhra Pradesh">Andhra Pradesh</option>
+                            <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+                            <option value="Assam">Assam</option>
+                            <option value="Bihar">Bihar</option>
+                            <option value="Chhattisgarh">Chhattisgarh</option>
+                            <option value="Goa">Goa</option>
+                            <option value="Gujarat">Gujarat</option>
+                            <option value="Haryana">Haryana</option>
+                            <option value="Himachal Pradesh">Himachal Pradesh</option>
+                            <option value="Jharkhand">Jharkhand</option>
+                            <option value="Karnataka">Karnataka</option>
+                            <option value="Kerala">Kerala</option>
+                            <option value="Madhya Pradesh">Madhya Pradesh</option>
+                            <option value="Maharashtra">Maharashtra</option>
+                            <option value="Manipur">Manipur</option>
+                            <option value="Meghalaya">Meghalaya</option>
+                            <option value="Mizoram">Mizoram</option>
+                            <option value="Nagaland">Nagaland</option>
+                            <option value="Odisha">Odisha</option>
+                            <option value="Punjab">Punjab</option>
+                            <option value="Rajasthan">Rajasthan</option>
+                            <option value="Sikkim">Sikkim</option>
+                            <option value="Tamil Nadu">Tamil Nadu</option>
+                            <option value="Telangana">Telangana</option>
+                            <option value="Tripura">Tripura</option>
+                            <option value="Uttar Pradesh">Uttar Pradesh</option>
+                            <option value="Uttarakhand">Uttarakhand</option>
+                            <option value="West Bengal">West Bengal</option>
+                            <option value="Andaman and Nicobar Islands">Andaman and Nicobar Islands</option>
+                            <option value="Chandigarh">Chandigarh</option>
+                            <option value="Dadra and Nagar Haveli and Daman and Diu">Dadra and Nagar Haveli and Daman and Diu</option>
+                            <option value="Delhi">Delhi</option>
+                            <option value="Jammu and Kashmir">Jammu and Kashmir</option>
+                            <option value="Ladakh">Ladakh</option>
+                            <option value="Lakshadweep">Lakshadweep</option>
+                            <option value="Puducherry">Puducherry</option>
+                        </select>
+                        <input type="text" id="volunteer-city" placeholder="City" required>
+                    </div>
+                    <select id="waste-type" required>
+                        <option value="">Select Waste Type Collected</option>
+                        <option value="Plastic">Plastic Waste</option>
+                        <option value="Organic">Organic/Wet Waste</option>
+                        <option value="E-Waste">Electronic Waste</option>
+                        <option value="Paper/Cardboard">Paper/Cardboard</option>
+                        <option value="Mixed">Mixed Recyclables</option>
+                    </select>
+                    <input type="number" id="waste-kg" placeholder="Amount of Waste Collected (kg)" required min="1">
+                    
+                    <div class="file-upload">
+                        <label for="volunteer-proof" class="custom-file-label">
+                            <i class="fas fa-cloud-upload-alt"></i> Upload Proof Picture
+                        </label>
+                        <input type="file" id="volunteer-proof" accept="image/*" required>
+                        <span id="file-name">No file chosen</span>
+                    </div>
+
                     <button type="submit" class="cta-button ripple-btn">Generate Certificate <i class="fas fa-magic"></i></button>
+                </form>
+
+                <form id="project-form" class="glass-form tab-content" data-content="project-tab">
+                    <input type="text" id="project-name" placeholder="Full Name" required>
+                    <input type="text" id="project-title" placeholder="Project Title" required>
+                    <textarea id="project-desc" placeholder="Write a brief description of your engineering or artistic project..." rows="4" required></textarea>
+                    
+                    <div class="file-upload">
+                        <label for="project-proof" class="custom-file-label">
+                            <i class="fas fa-camera"></i> Upload Project Picture
+                        </label>
+                        <input type="file" id="project-proof" accept="image/*" required>
+                        <span id="proj-file-name">No file chosen</span>
+                    </div>
+
+                    <button type="submit" class="cta-button ripple-btn">Submit Project & Get Certified</button>
                 </form>
             </div>
         </div>
     </section>
+
+    <div id="project-success-modal" class="modal-overlay hidden">
+        <div class="modal-content success-modal">
+            <span class="close-modal">&times;</span>
+            <i class="fas fa-check-circle success-icon"></i>
+            <h3>Congratulations!</h3>
+            <p>You are now part of our Family. Let's make Clean India.</p>
+        </div>
+    </div>
 
     <div id="cert-modal" class="modal-overlay hidden">
         <div class="modal-content">
@@ -421,7 +511,7 @@
         </div>
     </div>
 
-    <div id="toast" class="toast hidden">Certificate Downloaded Successfully!</div>
+    <div id="toast" class="toast hidden">Action Successful!</div>
 
     <section id="about" class="section-padding">
         <div class="container text-center">
@@ -431,15 +521,16 @@
             </div>
             <p style="max-width: 800px; margin: 0 auto; font-size: 1.1rem;">
                 We are students of <strong>Lovely Professional University (LPU)</strong>. This website is developed as part of our Environmental Studies academic project titled:
-“Economic Impacts of Solid Waste Management in India: Challenges and Opportunities.”
-Solid Waste Management is not only an environmental issue but also a significant economic concern for developing countries like India. Through this project, we aim to analyze how improper waste management leads to financial burdens such as healthcare costs, land degradation, loss of recyclable resources, and municipal budget strain. At the same time, we also highlight the economic opportunities in recycling industries, waste-to-energy systems, green employment generation, and circular economy practices.
-Our objective is to spread awareness about the economic consequences of waste mismanagement and encourage citizens to actively participate in building a cleaner and more sustainable India.
-<br><br>
-<b>This project is proudly developed by :- </b><br><br>
-<b>Dibya Narayan Bala <br>
-Susmit Choudhury <br>
-Swastik Das <br><br></b>
-Together, we designed and developed this interactive platform to demonstrate how technology, awareness, and citizen participation can contribute to sustainable waste management practices.
+                "Economic Impacts of Solid Waste Management in India: Challenges and Opportunities."
+                Solid Waste Management is not only an environmental issue but also a significant economic concern for developing countries like India. Through this project, we aim to analyze how improper waste management leads to financial burdens such as healthcare costs, land degradation, loss of recyclable resources, and municipal budget strain. At the same time, we also highlight the economic opportunities in recycling industries, waste-to-energy systems, green employment generation, and circular economy practices.
+                Our objective is to spread awareness about the economic consequences of waste mismanagement and encourage citizens to actively participate in building a cleaner and more sustainable India.
+                <br><br>
+                <b>This project is proudly developed by :- </b><br><br>
+                <b>
+                Susmit Choudhury <br>
+                Swastik Das <br><br></b>
+                Together, we designed and developed this interactive platform to demonstrate how technology, awareness, and citizen participation can contribute to sustainable waste management practices.
+            </p>
         </div>
     </section>
 
@@ -451,7 +542,7 @@ Together, we designed and developed this interactive platform to demonstrate how
     <footer>
         <div class="footer-content">
             <div class="footer-section">
-                <h3>Green India</h3>
+                <h3>Clean India</h3>
                 <p>An educational initiative to raise awareness about environmental economics.</p>
             </div>
             <div class="footer-section">
