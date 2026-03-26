@@ -59,7 +59,7 @@ ul {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1rem 5%;
+    padding: 0.6rem 5%; /* <-- Changed this to make it slimmer */
     background-color: #fff;
     box-shadow: 0 2px 10px rgba(0,0,0,0.1);
     position: sticky;
@@ -1139,7 +1139,64 @@ footer {
 @keyframes fadeIn {
     to { opacity: 1; }
 }
+/* --- Live Volunteer Counter Styling (UPDATED) --- */
+.volunteer-counter {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    margin: 0 auto 2rem auto;
+    padding: 10px 25px; /* Greatly reduced height */
+    background: #ffffff; /* Highlighted solid white tab */
+    border-radius: 50px; /* Pill/Tab shape */
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+    border: 3px solid var(--primary-green); /* Highlights it further */
+    max-width: max-content;
+}
 
+.volunteer-counter h3 {
+    font-size: 1.1rem;
+    color: #111111; /* Dark text as requested */
+    font-weight: 800;
+    margin: 0; /* Removes extra height */
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.volunteer-counter i {
+    color: var(--primary-green);
+    margin-right: 8px;
+    font-size: 1.3rem;
+}
+
+.counter-number-box {
+    background: linear-gradient(135deg, var(--primary-green), var(--secondary-green));
+    padding: 5px 20px; /* Compact padding */
+    border-radius: 30px;
+    box-shadow: 0 4px 10px rgba(34, 139, 34, 0.3);
+}
+
+#live-volunteer-count {
+    font-family: 'Righteous', 'Paytone One', sans-serif;
+    font-size: 2.2rem; /* Adjusted for less height */
+    color: #fff;
+    line-height: 1;
+    text-shadow: 0 2px 5px rgba(0,0,0,0.3);
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), color 0.3s ease;
+    display: inline-block;
+}
+
+/* Mobile tweak for compact counter tab */
+@media (max-width: 768px) {
+    .volunteer-counter {
+        flex-direction: column; /* Stacks on small phones */
+        gap: 10px;
+        padding: 15px;
+        border-radius: 20px;
+    }
+    #live-volunteer-count { font-size: 2rem; }
+    .volunteer-counter h3 { font-size: 0.95rem; text-align: center; }
+}
 /* ========================================= */
 /* 📱 MOBILE OPTIMIZATION & RESPONSIVENESS */
 /* ========================================= */

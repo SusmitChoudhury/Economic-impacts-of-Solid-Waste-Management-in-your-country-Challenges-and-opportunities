@@ -1,6 +1,59 @@
 // Wait for the DOM to load
 document.addEventListener('DOMContentLoaded', () => {
 
+    // --- Live Volunteer Counter Logic ---
+    const counterDisplay = document.getElementById('live-volunteer-count');
+    
+    // Check if a count already exists in local storage, if not, set base to 246
+    // (Changed key to _v2 to force a reset from the old 1245 number)
+    let currentTotal = localStorage.getItem('cleanIndiaTotal_v2');
+    if (!currentTotal) {
+        currentTotal = 246; // <--- Changed from 1245 to 246 here!
+        localStorage.setItem('cleanIndiaTotal_v2', currentTotal);
+    }
+    
+    // Smooth Increasing Number Effect on Page Load
+    if (counterDisplay) {
+        let targetCount = parseInt(currentTotal);
+        let duration = 2000; // 2 seconds animation
+        let startTimestamp = null;
+
+        function countUpAnimation(timestamp) {
+            if (!startTimestamp) startTimestamp = timestamp;
+            let progress = timestamp - startTimestamp;
+            
+            // Calculate current number based on time passed
+            let current = Math.min(Math.floor((progress / duration) * targetCount), targetCount);
+            counterDisplay.innerText = current.toLocaleString();
+            
+            if (progress < duration) {
+                window.requestAnimationFrame(countUpAnimation);
+            } else {
+                counterDisplay.innerText = targetCount.toLocaleString();
+            }
+        }
+        // Start animation
+        window.requestAnimationFrame(countUpAnimation);
+    }
+
+    // Function to increase the counter visually when a form is submitted
+    function triggerCounterIncrease() {
+        currentTotal++;
+        localStorage.setItem('cleanIndiaTotal_v2', currentTotal); // <--- Updated key here too!
+        
+        if (counterDisplay) {
+            // Cool pop animation
+            counterDisplay.style.transform = 'scale(1.4)';
+            counterDisplay.style.color = '#DAA520'; // Flashes Gold
+            
+            setTimeout(() => {
+                counterDisplay.innerText = parseInt(currentTotal).toLocaleString();
+                counterDisplay.style.transform = 'scale(1)';
+                counterDisplay.style.color = '#fff'; // Returns to white
+            }, 400);
+        }
+    }
+
     // --- 5️⃣ UI Polish: Scroll Progress Bar ---
     window.addEventListener('scroll', () => {
         const scrollTop = document.documentElement.scrollTop;
@@ -219,8 +272,6 @@ document.addEventListener('DOMContentLoaded', () => {
         gameActive = false;
         clearInterval(gameTimer);
         if (won) {
-            // Did not use the string replacement here as it uses innerHTML which removes the original text. The original HTML has the correct "Clean India" string.
-            // However, the original code overwrote it. I'll maintain the structure but fix the text.
             winMsg.innerHTML = `<h3><i class="fas fa-trophy"></i> Outstanding!</h3><p>Area Cleaned in ${60 - timeLeft}s!</p>`;
             winMsg.style.display = 'block';
             fireConfetti();
@@ -392,6 +443,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Show Modal
         modal.classList.add('active');
+
+        // Trigger Counter Increase
+        triggerCounterIncrease();
         
         // Setup Download
         downloadBtn.onclick = function() {
@@ -419,6 +473,9 @@ document.addEventListener('DOMContentLoaded', () => {
         
         // Show Success Modal
         projectSuccessModal.classList.add('active');
+
+        // Trigger Counter Increase
+        triggerCounterIncrease();
         
         // Reset form
         projectForm.reset();
