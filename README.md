@@ -4,7 +4,7 @@
 
 An interactive, academic-quality web platform designed to raise awareness about the environmental and economic crisis of waste management in India. This project gamifies learning and encourages citizen participation through interactive maps, games, and a digital certification system.
 
-🔗 **[Live Demo: View the Website Here](https://SusmitChoudhury.github.io/Economic-impacts-of-Solid-Waste-Management-in-your-country-Challenges-and-opportunities/EcoWasteProject/)**
+🔗 **[Live Demo: View the Website Here]([https://SusmitChoudhury.github.io/Economic-impacts-of-Solid-Waste-Management-in-your-country-Challenges-and-opportunities/EcoWasteProject/](https://susmitchoudhury.github.io/Economic-impacts-of-Solid-Waste-Management-in-your-country-Challenges-and-opportunities/))**
 
 ---
 
