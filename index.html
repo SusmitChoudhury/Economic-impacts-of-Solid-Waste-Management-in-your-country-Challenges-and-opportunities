@@ -3,573 +3,967 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Economic Impacts of SWM in India | EV Project</title>
-    <meta name="description" content="An academic project on the Economic Impacts of Solid Waste Management in India: Challenges and Solutions.">
+    <title>Clean India | Economic Impacts of Solid Waste Management</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Explore the economic impacts of solid waste management in India. An interactive academic project with data, 3D visualizations, and actionable solutions.">
+    <meta name="keywords" content="Clean India, Waste Management, solid waste, recycling, India, sustainability, environment">
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Syne:wght@700;800&family=DM+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;600&family=Great+Vibes&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    
+    <!-- Leaflet Maps CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/x4444444444444444444444444444444444444444444444444444444444444444444dist/leaflet.css">
+
+    <!-- Custom CSS -->
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Open+Sans:wght@400;600&family=Great+Vibes&display=swap" rel="stylesheet">
 </head>
 <body>
 
+    <!-- Scroll Progress -->
     <div id="scroll-progress"></div>
 
-    <nav class="navbar">
-        <div class="logo">
-            <i class="fas fa-trash-alt"></i> <b>Clean</b><span class="highlight"><b>India</b></span>
-        </div>
-        <ul class="nav-links">
-            <li><a href="#home">Home</a></li>
-            <li><a href="#problem">The Problem</a></li>
-            <li><a href="#map-section">Map Data</a></li> 
-            <li><a href="#schemes">Schemes</a></li>
-            <li><a href="#impact">Economic Impact</a></li>
-            <li><a href="#games">Take Action</a></li>
-            <li><a href="#certificate">Join Us</a></li>
-        </ul>
-        <div class="hamburger">
-            <div class="line"></div>
-            <div class="line"></div>
-            <div class="line"></div>
+    <!-- 🌐 SECTION 1 — NAVIGATION BAR -->
+    <nav id="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path>
+                    <path d="M3 3v5h5"></path>
+                </svg>
+                <span class="logo-clean">CLEAN</span> <span class="logo-india">INDIA</span>
+            </div>
+            
+            <ul class="nav-links">
+                <li><a href="#hero">Home</a></li>
+                <li><a href="#problem">The Crisis</a></li>
+                <li><a href="#map-dashboard">Map Data</a></li>
+                <li><a href="#city-dashboard">City Dashboard</a></li>
+                <li><a href="#schemes">Schemes</a></li>
+                <li><a href="#economics">Economic Impact</a></li>
+                <li><a href="#calculator">Take Action</a></li>
+                <li><a href="#volunteer">Join Us</a></li>
+            </ul>
+
+            <div class="nav-right">
+                <button class="btn-volunteer" onclick="document.querySelector('#volunteer').scrollIntoView({behavior:'smooth'})">
+                    🌱 Volunteer Now
+                </button>
+                <div class="live-status">
+                    <span class="dot"></span>
+                    <span class="live-text">LIVE: 246 Volunteers</span>
+                </div>
+                <div class="hamburger">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </div>
         </div>
     </nav>
 
-    <header id="home" class="hero" style="background: url('Gemini_Generated_Image_n2o800n2o800n2o8.png') no-repeat center center/cover;">
-        <div class="hero-overlay"></div>
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-menu">
+        <div class="close-menu"><i class="fas fa-times"></i></div>
+        <ul class="mobile-links">
+            <li><a href="#hero">Home</a></li>
+            <li><a href="#problem">The Crisis</a></li>
+            <li><a href="#map-dashboard">Map Data</a></li>
+            <li><a href="#city-dashboard">City Dashboard</a></li>
+            <li><a href="#schemes">Schemes</a></li>
+            <li><a href="#economics">Economic Impact</a></li>
+            <li><a href="#calculator">Take Action</a></li>
+            <li><a href="#volunteer">Join Us</a></li>
+        </ul>
+    </div>
+
+    <!-- 🌐 SECTION 2 — HERO (Full Viewport, 3D WebGL) -->
+    <header id="hero">
+        <canvas id="hero-canvas"></canvas>
         <div class="hero-content">
-            <h1 class="fade-in">Solid Waste Management in India</h1>
-            <p class="fade-in delay-1">Analyzing Economic Impacts, Challenges, and Sustainable Solutions</p>
-            <a href="#problem" class="cta-button fade-in delay-2 ripple-btn">Explore the Analysis</a>
+            <div class="hero-supertitle" id="hero-typewriter"></div>
+            <h1 class="hero-title">
+                <span class="line-1">Solid Waste Management in India</span><br>
+                <span class="line-2">in India</span>
+            </h1>
+            <p class="hero-subtitle">
+                62 Million Tonnes of Municipal Solid Waste generated annually.
+                Every second, 2 tonnes more are added. Explore the data. 
+                Understand the economics. Be the solution.
+            </p>
+            
+            <div class="stats-row">
+                <div class="stat-pill">62M+<br><span>Tonnes/Yr</span></div>
+                <div class="stat-pill">$15B<br><span>Lost/Year</span></div>
+                <div class="stat-pill">31%<br><span>Untreated</span></div>
+            </div>
+
+            <div class="hero-buttons">
+                <a href="#problem" class="btn btn-primary">Explore the Crisis &darr;</a>
+                <a href="#city-dashboard" class="btn btn-secondary">View City Data &rarr;</a>
+            </div>
         </div>
-        <div class="floating-icons">
-            <i class="fas fa-leaf float-1"></i>
-            <i class="fas fa-recycle float-2"></i>
-            <i class="fas fa-seedling float-3"></i>
-            <i class="fas fa-globe-asia float-4"></i>
+        <div class="scroll-indicator">
+            <i class="fas fa-chevron-down"></i>
         </div>
     </header>
 
-    <section class="stats-strip">
-        <div class="stat-item">
-            <h2 class="counter" data-target="62">0</h2><span>Million</span>
-            <p>Tonnes Waste/Year</p>
-        </div>
-        <div class="stat-item">
-            <h2 class="counter" data-target="31">0</h2><span>%</span>
-            <p>Dumping Rate</p>
-        </div>
-        <div class="stat-item">
-            <h2 class="counter" data-target="15">0</h2><span>Billion $</span>
-            <p>Lost Resource Value</p>
+    <!-- 📊 SECTION 3 — ANIMATED STATS STRIP -->
+    <section id="stats">
+        <div class="stats-grid">
+            <div class="stat-card">
+                <i class="fa-solid fa-trash-can"></i>
+                <div class="circle-progress">
+                    <svg viewBox="0 0 100 100">
+                        <circle cx="50" cy="50" r="45"></circle>
+                        <circle class="progress" cx="50" cy="50" r="45"></circle>
+                    </svg>
+                    <h2 class="counter" data-target="62">0</h2>
+                </div>
+                <p class="unit">Million Tonnes</p>
+                <p class="label">Generated Per Year</p>
+            </div>
+            <div class="stat-card">
+                <i class="fa-solid fa-dumpster-fire"></i>
+                <div class="circle-progress">
+                    <svg viewBox="0 0 100 100">
+                        <circle cx="50" cy="50" r="45"></circle>
+                        <circle class="progress" cx="50" cy="50" r="45"></circle>
+                    </svg>
+                    <h2 class="counter" data-target="31">0</h2>
+                </div>
+                <p class="unit">%</p>
+                <p class="label">Waste Left Untreated</p>
+            </div>
+            <div class="stat-card">
+                <i class="fa-solid fa-money-bill-trend-up"></i>
+                <div class="circle-progress">
+                    <svg viewBox="0 0 100 100">
+                        <circle cx="50" cy="50" r="45"></circle>
+                        <circle class="progress" cx="50" cy="50" r="45"></circle>
+                    </svg>
+                    <div class="currency-wrapper">
+                        <span>$</span><h2 class="counter" data-target="15">0</h2>
+                    </div>
+                </div>
+                <p class="unit">Billion USD</p>
+                <p class="label">Lost Resource Value</p>
+            </div>
+            <div class="stat-card">
+                <i class="fa-solid fa-mountain"></i>
+                <div class="circle-progress">
+                    <svg viewBox="0 0 100 100">
+                        <circle cx="50" cy="50" r="45"></circle>
+                        <circle class="progress" cx="50" cy="50" r="45"></circle>
+                    </svg>
+                    <h2 class="counter" data-target="4000">0</h2><span>+</span>
+                </div>
+                <p class="unit">Landfills</p>
+                <p class="label">Across India</p>
+            </div>
+            <div class="stat-card">
+                <i class="fa-solid fa-users"></i>
+                <div class="circle-progress">
+                    <svg viewBox="0 0 100 100">
+                        <circle cx="50" cy="50" r="45"></circle>
+                        <circle class="progress" cx="50" cy="50" r="45"></circle>
+                    </svg>
+                    <h2 class="counter float" data-target="1.4">0</h2>
+                </div>
+                <p class="unit">Billion</p>
+                <p class="label">People Impacted</p>
+            </div>
         </div>
     </section>
 
-    <section id="problem" class="section-padding">
-        <div class="container">
-            <div class="section-header">
-                <h2>The Problem Statement</h2>
-                <div class="underline"></div>
-            </div>
-            <div class="content-split">
-                <div class="text-block slide-left">
-                    <p>India is facing a critical environmental crisis due to rapid urbanization and inadequate waste management infrastructure. With a population exceeding 1.4 billion, the country generates approximately <strong>62 million tonnes of municipal solid waste (MSW) annually</strong>.</p>
-                    <p>Despite various government initiatives like the <em>Swachh Bharat Abhiyan</em>, a significant portion of this waste remains untreated. It is estimated that only about 70% of waste is collected, and of that, less than 20% is treated scientifically. The remainder ends up in overflowing landfills, contaminating soil and groundwater, or is openly burned, contributing to severe air pollution.</p>
+    <!-- ⚠️ SECTION 4 — THE PROBLEM STATEMENT -->
+    <section id="problem">
+        <div class="container dual-layout">
+            <div class="problem-text">
+                <span class="badge">THE CRISIS</span>
+                <h2 class="section-title">India Drowns in Its Own Waste</h2>
+                <p class="lead-text">
+                    The rapid urbanization and economic growth in India have led to
+                    a massive surge in solid waste generation. Our current infrastructure 
+                    is ill-equipped to handle the load, leading to massive environmental, economic, and health consequences.
+                </p>
+                
+                <div class="timeline-box">
+                    <div class="timeline-item">
+                        <div class="dot"></div>
+                        <p><strong>1990</strong> — India generates ~30M tonnes/year</p>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="dot"></div>
+                        <p><strong>2010</strong> — Grows to 48M tonnes/year</p>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="dot"></div>
+                        <p><strong>2025</strong> — Now at 62M tonnes (projected 165M by 2030)</p>
+                    </div>
                 </div>
-                <div class="image-block slide-right">
-                    <img src="https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?auto=format&fit=crop&q=80&w=600" alt="Landfill site in India">
+
+                <div class="callout-box">
+                    <p>"Only <strong>20%</strong> of collected waste is scientifically treated. The rest? Landfills, rivers, open burning."</p>
+                </div>
+            </div>
+            <div class="problem-visual">
+                <div id="problem-3d"></div>
+                <p class="caption">Municipal Solid Waste (MSW) Growth — 1990 to 2025</p>
+            </div>
+        </div>
+
+        <div class="root-causes">
+            <h3 class="subsection-title">ROOT CAUSES</h3>
+            <svg id="mind-map" viewBox="0 0 800 400"></svg>
+            <div class="nodes-container">
+                <div class="node top-left">
+                    <i class="fa-solid fa-city"></i>
+                    <span>Rapid Urbanization</span>
+                </div>
+                <div class="node top-right">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                    <span>Changing Consumption</span>
+                </div>
+                <div class="node bottom-left">
+                    <i class="fa-solid fa-boxes-packing"></i>
+                    <span>Lack of Segregation</span>
+                </div>
+                <div class="node bottom-right">
+                    <i class="fa-solid fa-coins"></i>
+                    <span>Financial Constraints</span>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="map-section" class="section-padding bg-light">
+    <!-- 🗺️ SECTION 5 — WASTE MAP + DATA CARDS -->
+    <section id="map-dashboard">
         <div class="container">
-            <div class="section-header">
-                <h2>Waste Generation Across India</h2>
-                <div class="underline"></div>
-                <p>Visualizing waste intensity and economic risk zones.</p>
+            <div class="section-header center">
+                <h2 class="section-title">National Waste Geography</h2>
+                <p class="subtitle">Interactive vulnerability map based on daily waste generation (TPD).</p>
             </div>
             
-            <div class="map-image-wrapper fade-up">
-                <div class="img-frame">
-                    <img src="Gemini_Generated_Image_9x4xsj9x4xsj9x4x.png" alt="India Waste Generation Heatmap" class="waste-map-img">
-                    <div class="map-overlay-shine"></div>
+            <div class="map-layout">
+                <div id="india-map-container">
+                    <svg id="india-svg-map" viewBox="0 0 800 800"></svg>
+                    <div id="map-tooltip" class="tooltip hidden"></div>
+                    <div class="map-legend">
+                        <div><span class="color-box c-green"></span> &lt; 500 TPD</div>
+                        <div><span class="color-box c-yellow"></span> 500–2000 TPD</div>
+                        <div><span class="color-box c-orange"></span> 2000–5000 TPD</div>
+                        <div><span class="color-box c-red"></span> &gt; 5000 TPD</div>
+                    </div>
                 </div>
-                <p class="caption">Figure 1: GIS-based Heatmap of Municipal Solid Waste Generation (2025 Projections).</p>
-            </div>
-
-            <div class="map-data-grid fade-up delay-1">
-                <div class="data-card green">
-                    <div class="color-band"></div>
-                    <h3><i class="fas fa-check-circle"></i> Low Waste (Green)</h3>
-                    <p><strong>States:</strong> North-East, Sikkim, Goa.</p>
-                    <p>Zones with effective segregation or lower population density. Minimal economic strain on local municipalities.</p>
-                </div>
-                <div class="data-card yellow">
-                    <div class="color-band"></div>
-                    <h3><i class="fas fa-exclamation-circle"></i> Moderate (Yellow)</h3>
-                    <p><strong>States:</strong> Odisha, Chhattisgarh, Rajasthan.</p>
-                    <p>Developing urban centers. Waste management infrastructure is present but struggling to cope with growth.</p>
-                </div>
-                <div class="data-card orange">
-                    <div class="color-band"></div>
-                    <h3><i class="fas fa-exclamation-triangle"></i> High (Orange)</h3>
-                    <p><strong>States:</strong> Karnataka, Gujarat, West Bengal.</p>
-                    <p>High industrial activity. Significant budget allocation required for landfill management and transport.</p>
-                </div>
-                <div class="data-card red">
-                    <div class="color-band"></div>
-                    <h3><i class="fas fa-radiation-alt"></i> Critical (Red)</h3>
-                    <p><strong>States:</strong> Maharashtra, Uttar Pradesh, Delhi.</p>
-                    <p><strong>>10,000 TPD.</strong> Urgent policy intervention needed. Severe economic loss due to health costs and land value degradation.</p>
+                
+                <div class="zone-cards">
+                    <div class="zone-card green">
+                        <i class="fa-solid fa-leaf"></i>
+                        <h4>Eco Zones</h4>
+                        <p>Under 500 TPD</p>
+                        <div class="sparkline" data-val="15"></div>
+                    </div>
+                    <div class="zone-card yellow">
+                        <i class="fa-solid fa-triangle-exclamation"></i>
+                        <h4>Warning Zones</h4>
+                        <p>500 - 2,000 TPD</p>
+                        <div class="sparkline" data-val="40"></div>
+                    </div>
+                    <div class="zone-card orange">
+                        <i class="fa-solid fa-fire"></i>
+                        <h4>Critical Zones</h4>
+                        <p>2,000 - 5,000 TPD</p>
+                        <div class="sparkline" data-val="70"></div>
+                    </div>
+                    <div class="zone-card red">
+                        <i class="fa-solid fa-skull-crossbones"></i>
+                        <h4>Danger Zones</h4>
+                        <p>Over 5,000 TPD</p>
+                        <div class="sparkline" data-val="90"></div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="system-explainer" class="section-padding">
+    <!-- 🏙️ SECTION 6 — CITY COMPARISON DASHBOARD -->
+    <section id="city-dashboard">
         <div class="container">
-            <div class="section-header">
-                <h2>How This Interactive System Works</h2>
-                <div class="underline"></div>
-                <p>Understanding the methodology behind the data visualization.</p>
+            <div class="dashboard-header">
+                <h2>INDIA'S WASTE COMPARISON DASHBOARD</h2>
+                <p>Drill Down: Nation &rarr; State &rarr; City</p>
             </div>
-            <div class="feature-grid">
-                <div class="feature-card fade-up">
-                    <div class="f-icon"><i class="fas fa-map-marked-alt"></i></div>
-                    <h3>Map Visualization</h3>
-                    <p>We utilize GIS data mapping to categorize states based on daily tonnage of waste generation, offering a bird's-eye view of the crisis.</p>
+            
+            <div class="dashboard-controls">
+                <div class="control-col">
+                    <span class="level">LEVEL 1</span>
+                    <label>🇮🇳 India Overview</label>
+                    <div class="read-only-select">62M Total</div>
                 </div>
-                <div class="feature-card fade-up delay-1">
-                    <div class="f-icon"><i class="fas fa-palette"></i></div>
-                    <h3>Color Coding Logic</h3>
-                    <p>The RAG (Red-Amber-Green) scale indicates urgency. Red zones require immediate central funding and technological intervention.</p>
+                <div class="control-col">
+                    <span class="level">LEVEL 2</span>
+                    <label>📍 Select State</label>
+                    <select id="state-select"></select>
                 </div>
-                <div class="feature-card fade-up delay-2">
-                    <div class="f-icon"><i class="fas fa-chart-line"></i></div>
-                    <h3>Economic Impact</h3>
-                    <p>Correlation analysis shows that Red zones lose up to 2% of local GDP due to poor sanitation and waste recovery inefficiency.</p>
+                <div class="control-col">
+                    <span class="level">LEVEL 3</span>
+                    <label>🏙️ Select City</label>
+                    <select id="city-select" disabled>
+                        <option>Select a state first</option>
+                    </select>
                 </div>
-                <div class="feature-card fade-up delay-3">
-                    <div class="f-icon"><i class="fas fa-users"></i></div>
-                    <h3>Citizen Role</h3>
-                    <p>This platform empowers citizens to identify their state's status and participate in local waste segregation drives.</p>
+            </div>
+
+            <div class="dashboard-panels">
+                <!-- National/State Level Panels -->
+                <div id="overview-panels" class="panels-grid dual">
+                    <div class="dash-card">
+                        <h3>National Region Breakdown</h3>
+                        <div class="chart-container">
+                            <canvas id="national-donutChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="dash-card">
+                        <h3>Top Cities by Generation (Selected State)</h3>
+                        <div class="chart-container">
+                            <canvas id="state-barChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- City Deep Dive Panels -->
+                <div id="city-panels" class="panels-grid hidden">
+                    <div class="dash-card small">
+                        <h4>DAILY WASTE</h4>
+                        <h2 id="cd-waste" class="highlight">0 TPD</h2>
+                    </div>
+                    <div class="dash-card small">
+                        <h4>COLLECTION RATE</h4>
+                        <h2 id="cd-collect" class="highlight">0%</h2>
+                    </div>
+                    <div class="dash-card small">
+                        <h4>RECYCLING RATE</h4>
+                        <h2 id="cd-recycle" class="highlight">0%</h2>
+                    </div>
+                    <div class="dash-card chart">
+                        <h4>WASTE BREAKDOWN</h4>
+                        <div class="chart-container compact">
+                            <canvas id="city-pieChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="dash-card">
+                        <h4>ECONOMIC BURDEN</h4>
+                        <h2 id="cd-burden" class="highlight text-red">$0M/yr</h2>
+                        <p class="formula">Calculated: Total Waste × $0.0023M</p>
+                    </div>
+                    <div class="dash-card chart">
+                        <h4>TREND 2020-2025</h4>
+                        <div class="chart-container compact">
+                            <canvas id="city-trendChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="compare-feature">
+                <h3>Visual Comparison Feature</h3>
+                <div class="compare-controls">
+                    <select id="compare-city-1"></select>
+                    <span class="vs">VS</span>
+                    <select id="compare-city-2"></select>
+                </div>
+                <div class="compare-chart">
+                    <canvas id="compare-radarChart"></canvas>
+                </div>
+                <div id="winner-badge" class="winner-badge hidden"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 📅 SECTION 7 — WASTE CALENDAR -->
+    <section id="calendar">
+        <div class="container">
+            <h2 class="section-title center">India's Waste Calendar — When It Peaks, When It Dips</h2>
+            <p class="subtitle center">Seasonal waste generation patterns across a full year.</p>
+
+            <div class="heatmap-wrapper">
+                <div class="month-labels" id="hm-months"></div>
+                <div class="heatmap-body">
+                    <div class="day-labels" id="hm-days"></div>
+                    <div class="heatmap-grid" id="heatmap-grid"></div>
+                </div>
+                <div class="heatmap-legend">
+                    <span>Low</span>
+                    <div class="scale"></div>
+                    <span>Critical Drop</span>
+                </div>
+            </div>
+
+            <div class="monthly-chart-box dash-card">
+                <h3>Monthly Waste Volume — National Average</h3>
+                <div class="chart-container">
+                    <canvas id="monthly-lineChart"></canvas>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="causes" class="section-padding">
+    <!-- 🏛️ SECTION 8 — GOVERNMENT SCHEMES -->
+    <section id="schemes">
         <div class="container">
-            <div class="section-header">
-                <h2>Root Causes</h2>
-                <div class="underline"></div>
+            <h2 class="section-title">Government Action Timeline</h2>
+            <p class="subtitle">Tracking policy evolution from 2014 to present.</p>
+            
+            <div class="timeline-scroll-container">
+                <svg class="timeline-line">
+                    <line x1="0" y1="50%" x2="100%" y2="50%"></line>
+                </svg>
+                <div class="timeline-nodes" id="scheme-nodes">
+                    <!-- Populated by JS -->
+                </div>
             </div>
-            <div class="cards-grid">
-                <div class="card fade-up">
-                    <i class="fas fa-city card-icon"></i>
-                    <h3>Rapid Urbanization</h3>
-                    <p>Unplanned urban growth has outpaced the capacity of civic bodies to manage waste services effectively.</p>
+            
+            <!-- Flyout Modal for Scheme -->
+            <div id="scheme-modal" class="flyout-card hidden">
+                <div class="close-modal"><i class="fas fa-times"></i></div>
+                <div class="modal-content" id="scheme-modal-body"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 💰 SECTION 9 — ECONOMIC IMPACT -->
+    <section id="economics">
+        <div class="container">
+            <h2 class="section-title">The Economics of Trash</h2>
+            
+            <div class="econ-callouts">
+                <div class="econ-stat">
+                    <h2>$15 Billion</h2>
+                    <p>Lost in landfills annually</p>
                 </div>
-                <div class="card fade-up delay-1">
-                    <i class="fas fa-shopping-cart card-icon"></i>
-                    <h3>Changing Consumption</h3>
-                    <p>The rise of the "use-and-throw" culture and single-use plastics has drastically increased non-biodegradable waste volume.</p>
+                <div class="econ-stat">
+                    <h2>4.7 Million</h2>
+                    <p>Jobs possible in circular economy</p>
                 </div>
-                <div class="card fade-up delay-2">
-                    <i class="fas fa-recycle card-icon"></i>
-                    <h3>Lack of Segregation</h3>
-                    <p>The absence of source segregation (wet vs. dry waste) at the household level makes recycling difficult and expensive.</p>
+                <div class="econ-stat">
+                    <h2>2%</h2>
+                    <p>GDP lost per Red Zone state</p>
                 </div>
-                <div class="card fade-up delay-3">
-                    <i class="fas fa-coins card-icon"></i>
-                    <h3>Financial Constraints</h3>
-                    <p>Municipalities often lack the funds for modern technology, relying on labor-intensive and inefficient collection methods.</p>
+            </div>
+
+            <div class="econ-charts-grid">
+                <div class="dash-card">
+                    <h3>Municipal Budget Allocation</h3>
+                    <div class="chart-container">
+                        <canvas id="econ-donut"></canvas>
+                    </div>
+                </div>
+                <div class="dash-card wide">
+                    <h3>Economic Costs by Sector ($B)</h3>
+                    <div class="chart-container">
+                        <canvas id="econ-bar"></canvas>
+                    </div>
+                </div>
+                <div class="dash-card wide">
+                    <h3>The Green Economy Opportunity</h3>
+                    <div class="chart-container">
+                        <canvas id="econ-line"></canvas>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="schemes" class="section-padding bg-light">
-        <div class="container">
-            <div class="section-header">
-                <h2>Government Initiatives</h2>
-                <div class="underline"></div>
+    <!-- 📈 SECTION 10 — ANIMATED INFOGRAPHIC -->
+    <section id="infographic">
+        <div class="horizontal-scroll-container" id="horizontal-infographic">
+            <svg class="connection-line"><path d="" stroke="#22c55e" stroke-width="4" fill="none" stroke-dasharray="10 10"/></svg>
+            
+            <!-- 5 Panels -->
+            <div class="info-panel panel-1990">
+                <div class="panel-content">
+                    <span class="year-badge">1990</span>
+                    <h2>~28 Million Tonnes/Year</h2>
+                    <p class="pop">Population: 838M</p>
+                    <p class="fact">Most waste was organic. Plastics barely existed in rural India.</p>
+                </div>
+                <div class="panel-3d" id="scene-1990"></div>
             </div>
-            <div class="cards-grid">
-                <div class="scheme-card fade-up">
-                    <div class="scheme-icon"><i class="fas fa-broom"></i></div>
-                    <h3>Swachh Bharat Abhiyan</h3>
-                    <p>A nationwide campaign to clean up the streets.</p>
-                    <div class="scheme-details hidden">
-                        <p>Launched in 2014, aimed at achieving a clean India by 2019. Focuses on ODF status and solid waste management.</p>
-                    </div>
-                    <button class="read-more-btn">Read More</button>
-                    <a href="https://swachhbharatmission.gov.in/" target="_blank" class="official-link ripple-btn">Explore Official Site <i class="fas fa-external-link-alt"></i></a>
+
+            <div class="info-panel panel-2000">
+                <div class="panel-content">
+                    <span class="year-badge">2000</span>
+                    <h2>~40 Million Tonnes/Year</h2>
+                    <p class="pop">Population: 1.05B</p>
+                    <p class="fact">Economic liberalization brought packaged goods. Plastic waste doubled in 10 years.</p>
                 </div>
-                <div class="scheme-card fade-up delay-1">
-                    <div class="scheme-icon"><i class="fas fa-building"></i></div>
-                    <h3>Smart Cities Mission</h3>
-                    <p>Promoting cities that provide core infrastructure.</p>
-                    <div class="scheme-details hidden">
-                        <p>Integration of ICT (Information and Communication Technology) with waste management for real-time tracking.</p>
-                    </div>
-                    <button class="read-more-btn">Read More</button>
-                    <a href="https://smartcities.gov.in/" target="_blank" class="official-link ripple-btn">Explore Official Site <i class="fas fa-external-link-alt"></i></a>
+                <div class="panel-3d" id="scene-2000"></div>
+            </div>
+
+            <div class="info-panel panel-2010">
+                <div class="panel-content">
+                    <span class="year-badge">2010</span>
+                    <h2>~48 Million Tonnes/Year</h2>
+                    <p class="pop">Population: 1.23B</p>
+                    <p class="fact">E-waste emerged as new category. Mobile phones generated 800,000 TPY of e-waste.</p>
                 </div>
-                <div class="scheme-card fade-up delay-2">
-                    <div class="scheme-icon"><i class="fas fa-industry"></i></div>
-                    <h3>EPR</h3>
-                    <p>Extended Producer Responsibility policy.</p>
-                    <div class="scheme-details hidden">
-                        <p>Makes manufacturers responsible for the entire life-cycle of their products, especially take-back, recycling, and final disposal.</p>
-                    </div>
-                    <button class="read-more-btn">Read More</button>
-                    <a href="https://cpcb.nic.in/epr-guidelines/" target="_blank" class="official-link ripple-btn">Explore Official Site <i class="fas fa-external-link-alt"></i></a>
+                <div class="panel-3d" id="scene-2010"></div>
+            </div>
+
+            <div class="info-panel panel-2020">
+                <div class="panel-content">
+                    <span class="year-badge">2020</span>
+                    <i class="fa-solid fa-mask-face covid-mask"></i>
+                    <h2>~62 Million Tonnes/Year</h2>
+                    <p class="pop">Population: 1.38B</p>
+                    <p class="fact">COVID-19 added 3.4M tonnes of medical/PPE waste in 6 months. Plastic waste surged 30%.</p>
                 </div>
-                <div class="scheme-card fade-up delay-3">
-                    <div class="scheme-icon"><i class="fas fa-book"></i></div>
-                    <h3>SWM Rules 2016</h3>
-                    <p>Mandates regarding source segregation.</p>
-                    <div class="scheme-details hidden">
-                        <p>Defines roles for waste generators, local authorities, and state governments emphasizing segregation at source.</p>
-                    </div>
-                    <button class="read-more-btn">Read More</button>
-                    <a href="https://cpcb.nic.in/waste-management/" target="_blank" class="official-link ripple-btn">Explore Official Site <i class="fas fa-external-link-alt"></i></a>
+            </div>
+
+            <div class="info-panel panel-2025">
+                <canvas id="scene-2025"></canvas>
+                <div class="panel-content overlaid">
+                    <span class="year-badge danger-badge">2025</span>
+                    <h2>~72 Million Tonnes/Year (proj)</h2>
+                    <p class="pop">Population: 1.44B</p>
+                    <p class="fact">By 2030 this will be 165M tonnes — triple 1990 levels — without urgent action.</p>
+                    <button class="btn btn-primary mt-4" onclick="document.querySelector('#calculator').scrollIntoView({behavior:'smooth'})">See What YOU Can Do &rarr;</button>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="impact" class="section-padding">
-        <div class="container">
-            <div class="section-header">
-                <h2>Economic Impacts</h2>
-                <div class="underline"></div>
+    <!-- 🧮 SECTION 11 — IMPACT CALCULATOR -->
+    <section id="calculator">
+        <div class="container dual-layout">
+            <div class="calc-inputs glass-card">
+                <h3>🧮 CALCULATE YOUR CITY'S IMPACT</h3>
+                
+                <div class="form-group">
+                    <label>Select Your State:</label>
+                    <select id="calc-state"></select>
+                </div>
+                <div class="form-group">
+                    <label>Select Your City:</label>
+                    <select id="calc-city" disabled><option>Select State first</option></select>
+                </div>
+                
+                <div class="form-group">
+                    <label>If <span id="val-volunteers" class="hl">10</span>% of city volunteers...</label>
+                    <input type="range" id="range-volunteers" min="0" max="100" value="10">
+                </div>
+                
+                <div class="form-group">
+                    <label>Each collecting <span id="val-kg" class="hl">5</span> kg per month</label>
+                    <input type="range" id="range-kg" min="1" max="50" value="5">
+                </div>
+
+                <div class="form-group">
+                    <label>For duration:</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="calc-months" value="3"> 3 mo</label>
+                        <label><input type="radio" name="calc-months" value="6"> 6 mo</label>
+                        <label><input type="radio" name="calc-months" value="12" checked> 12 mo</label>
+                        <label><input type="radio" name="calc-months" value="24"> 24 mo</label>
+                    </div>
+                </div>
+
+                <button id="btn-calculate" class="btn btn-primary full-width">⚡ CALCULATE IMPACT</button>
             </div>
-            <div class="impact-layout">
-                <div class="impact-text">
-                    <p class="lead">Poor solid waste management is not just an environmental issue; it is a massive economic burden on the Indian economy.</p>
+
+            <div class="calc-results glass-card">
+                <h3>📊 IMPACT PROJECTION <span id="res-cityname">FOR CITY</span></h3>
+                
+                <div class="res-grid">
+                    <div>
+                        <p>VOLUNTEERS</p>
+                        <h3 id="res-volunteers" class="text-green">0</h3>
+                        <small>people</small>
+                    </div>
+                    <div>
+                        <p>WASTE REMOVED</p>
+                        <h3 id="res-waste" class="text-gold">0 TPY</h3>
+                    </div>
+                    <div>
+                        <p>CLEAN SCORE</p>
+                        <h3 id="res-score" class="text-blue">0/100</h3>
+                    </div>
+                </div>
+
+                <div class="res-bar-container">
+                    <p>City becomes <span id="res-percent">0</span>% cleaner</p>
+                    <div class="progress-track"><div class="progress-fill" id="res-progress"></div></div>
+                </div>
+
+                <div class="res-extras mt-3">
+                    <p>Equivalent to removing <span id="res-trucks">0</span> trucks/day</p>
+                    <div class="truck-icons" id="truck-container"></div>
                     
-                    <ul class="impact-list">
-                        <li class="slide-left">
-                            <i class="fas fa-notes-medical"></i>
-                            <div>
-                                <strong>Public Health Costs</strong>
-                                <p>Open dumping breeds vectors for diseases like malaria, dengue, and cholera. The treating of waste-related illnesses costs India billions annually.</p>
-                            </div>
-                        </li>
-                        <li class="slide-left delay-1">
-                            <i class="fas fa-water"></i>
-                            <div>
-                                <strong>Environmental Restoration Costs</strong>
-                                <p>Leachate from landfills contaminates groundwater. Remediation of polluted water sources and soil rehabilitation requires massive capital investment.</p>
-                            </div>
-                        </li>
-                        <li class="slide-left delay-2">
-                            <i class="fas fa-chart-line"></i>
-                            <div>
-                                <strong>Lost Resource Recovery</strong>
-                                <p>India buries an estimated <strong>$15 billion worth of recyclable materials</strong> in landfills every year. This is a direct loss to the circular economy.</p>
-                            </div>
-                        </li>
+                    <p class="mt-2">At this rate, city reaches "Clean standard" in: <strong id="res-years">∞ YEARS</strong></p>
+                    
+                    <ul class="eco-benefits mt-2">
+                        <li><i class="fa-solid fa-cloud"></i> CO₂ equivalent saved: <strong id="res-co2">0</strong> tonnes</li>
+                        <li><i class="fa-solid fa-tree"></i> Trees equivalent: <strong id="res-trees">0</strong> trees</li>
                     </ul>
                 </div>
-                <div class="impact-chart fade-in">
-                    <div class="chart-container">
-                        <h3>Budget Allocation in ULBs</h3>
-                        <div class="bar-group">
-                            <div class="bar-label">Collection & Transport</div>
-                            <div class="bar" style="width: 80%;">80%</div>
-                        </div>
-                        <div class="bar-group">
-                            <div class="bar-label">Processing & Disposal</div>
-                            <div class="bar" style="width: 20%;">20%</div>
-                        </div>
-                        <p class="chart-caption">Urban Local Bodies spend most funds on transport, leaving little for scientific disposal.</p>
-                    </div>
-                </div>
             </div>
         </div>
     </section>
 
-    <section id="solutions" class="section-padding bg-dark">
+    <!-- 📍 SECTION 12 — RECYCLING CENTER TRACKER -->
+    <section id="tracker">
         <div class="container">
-            <div class="section-header text-white">
-                <h2>Sustainable Solutions</h2>
-                <div class="underline white-line"></div>
-            </div>
-            <div class="solutions-container">
-                <div class="sol-card fade-up">
-                    <img src="Gemini_Generated_Image_xszdlgxszdlgxszd.png" alt="Recycling">
-                    <div class="sol-content">
-                        <h3>Circular Economy</h3>
-                        <p>Transitioning from 'Take-Make-Dispose' to a circular model where waste is viewed as a resource. Promoting recycling industries can generate millions of green jobs.</p>
-                    </div>
-                </div>
-                <div class="sol-card fade-up delay-1">
-                    <img src="https://images.unsplash.com/photo-1532601224476-15c79f2f7a51?auto=format&fit=crop&q=80&w=400" alt="Composting">
-                    <div class="sol-content">
-                        <h3>Decentralized Composting</h3>
-                        <p>Managing biodegradable waste locally through community composting reduces transportation costs and produces valuable organic fertilizer.</p>
-                    </div>
-                </div>
-                <div class="sol-card fade-up delay-2">
-                    <img src="https://images.unsplash.com/photo-1591193686104-fddba4d0e4d8?auto=format&fit=crop&q=80&w=400" alt="Technology">
-                    <div class="sol-content">
-                        <h3>Waste-to-Energy (WtE)</h3>
-                        <p>Implementing modern WtE plants for non-recyclable high-calorific waste can solve disposal issues while generating electricity.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="games" class="section-padding bg-light">
-        <div class="container">
-            <div class="section-header">
-                <h2>Interactive Awareness</h2>
-                <div class="underline"></div>
+            <h2 class="section-title">Waste Infrastructure Network</h2>
+            <div class="tracker-filters">
+                <button class="filter-pill active" data-type="all">All Centers</button>
+                <button class="filter-pill" data-type="recycling">🟢 Recycling Plants</button>
+                <button class="filter-pill" data-type="composting">🟡 Composting</button>
+                <button class="filter-pill" data-type="ewaste">🔵 E-Waste</button>
+                <button class="filter-pill" data-type="wte">⚡ WtE Plants</button>
+                <!-- Omit Landfills as requested for actionable positivity or include as a danger ping -->
             </div>
             
-            <div class="game-wrapper fade-up">
-                <h3>1. Waste Segregation Challenge</h3>
-                <p>Drag the items into the correct bins!</p>
-                <div class="score-board">Score: <span id="seg-score">0</span></div>
+            <div class="map-wrapper">
+                <!-- State Selection Sidebar -->
+                <div class="map-sidebar">
+                    <h4>Fly to State</h4>
+                    <ul id="tracker-state-list"></ul>
+                </div>
+                <div id="recycle-map"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 🌱 SECTION 13 — SUSTAINABLE SOLUTIONS -->
+    <section id="solutions">
+        <div class="container">
+            <h2 class="section-title center">Blueprint for the Future</h2>
+            
+            <div class="flip-cards-grid">
+                <div class="flip-card">
+                    <div class="flip-inner">
+                        <div class="flip-front green-grad">
+                            <i class="fa-solid fa-recycle"></i>
+                            <h3>Circular Economy</h3>
+                        </div>
+                        <div class="flip-back">
+                            <h4>Zero Waste Approach</h4>
+                            <p>Designing products to be reused, repaired, and recycled inherently, closing the loop of the supply chain.</p>
+                        </div>
+                    </div>
+                </div>
                 
-                <div class="waste-items-container" id="waste-source">
-                    <div class="waste-item" draggable="true" data-type="wet"><i class="fas fa-apple-alt"></i></div>
-                    <div class="waste-item" draggable="true" data-type="dry"><i class="fas fa-newspaper"></i></div>
-                    <div class="waste-item" draggable="true" data-type="plastic"><i class="fas fa-bottle-water"></i></div>
-                    <div class="waste-item" draggable="true" data-type="haz"><i class="fas fa-battery-full"></i></div>
+                <div class="flip-card">
+                    <div class="flip-inner">
+                        <div class="flip-front gold-grad">
+                            <i class="fa-solid fa-seedling"></i>
+                            <h3>Decentralized Composting</h3>
+                        </div>
+                        <div class="flip-back">
+                            <h4>Local Organic Digesters</h4>
+                            <p>Managing 50% of wet waste directly within societies and wards, drastically reducing transport emissions.</p>
+                        </div>
+                    </div>
                 </div>
 
+                <div class="flip-card">
+                    <div class="flip-inner">
+                        <div class="flip-front orange-grad">
+                            <i class="fa-solid fa-bolt"></i>
+                            <h3>Waste-to-Energy</h3>
+                        </div>
+                        <div class="flip-back">
+                            <h4>Power from Trash</h4>
+                            <p>Incinerating non-recyclable dry waste safely to generate grid electricity and reduce landfill mass.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flip-card">
+                    <div class="flip-inner">
+                        <div class="flip-front blue-grad">
+                            <i class="fa-solid fa-trash"></i>
+                            <h3>Source Segregation</h3>
+                        </div>
+                        <div class="flip-back">
+                            <h4>The Citizen's Duty</h4>
+                            <p>The simplest, most impactful action. Keeping wet, dry, and hazardous waste separate at the household level.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="circular-economy-diagram">
+                <!-- Rendered via CSS/SVG in JS -->
+                <svg id="ce-svg" viewBox="0 0 500 500"></svg>
+            </div>
+        </div>
+    </section>
+
+    <!-- 🔮 SECTION 14 — FUTURE SCOPE -->
+    <section id="future">
+        <div class="container dual-layout">
+            <div class="future-visual">
+                <canvas id="future-city"></canvas>
+            </div>
+            <div class="future-text">
+                <h2 class="section-title">The Path Ahead: Smart Tech</h2>
+                <div class="tech-cards">
+                    <div class="tech-card">
+                        <div class="icon"><i class="fa-solid fa-robot"></i></div>
+                        <div class="details">
+                            <h4>AI Waste Sorting (2026–2028)</h4>
+                            <p>Robotic arms using complex computer vision algorithms to sort materials 50x faster than humans.</p>
+                        </div>
+                    </div>
+                    <div class="tech-card">
+                        <div class="icon"><i class="fa-solid fa-wifi"></i></div>
+                        <div class="details">
+                            <h4>IoT Bin Sensors (Active Now)</h4>
+                            <p>Smart bins reporting fill levels wirelessly, optimizing collection truck routes and reducing fuel usage.</p>
+                        </div>
+                    </div>
+                    <div class="tech-card">
+                        <div class="icon"><i class="fa-solid fa-helicopter"></i></div>
+                        <div class="details">
+                            <h4>Drone Monitoring (2027)</h4>
+                            <p>Aerial surveillance mapping illegal dump sites and monitoring landfill containment breeches.</p>
+                        </div>
+                    </div>
+                    <div class="tech-card">
+                        <div class="icon"><i class="fa-brands fa-hive"></i></div>
+                        <div class="details">
+                            <h4>Blockchain EPR (2025–2026)</h4>
+                            <p>Immutable digital ledgers ensuring corporate plastic producers genuinely fulfill their recycling mandates.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 🎮 SECTION 15 — WASTE SEGREGATION CHALLENGE -->
+    <section id="segregation-game">
+        <div class="container">
+            <h2 class="section-title center">Interactive: Segregation Challenge</h2>
+            <div class="game-hud">
+                <span class="level-indicator">Level 1</span>
+                <span class="score-indicator">Score: <span id="game-score">0</span></span>
+            </div>
+            
+            <div class="game-area">
+                <div class="waste-belt" id="waste-spawner">
+                    <!-- Waste items dragged from here -->
+                </div>
+                
                 <div class="dustbins-container">
-                    <div class="dustbin green" data-bin="wet"><i class="fas fa-trash"></i><br>Wet</div>
-                    <div class="dustbin blue" data-bin="dry"><i class="fas fa-trash"></i><br>Dry</div>
-                    <div class="dustbin yellow" data-bin="plastic"><i class="fas fa-trash"></i><br>Plastic</div>
-                    <div class="dustbin red" data-bin="haz"><i class="fas fa-trash"></i><br>Hazardous</div>
+                    <div class="bin bin-green" data-type="wet">
+                        <div class="lid"></div>
+                        <div class="body">WET / ORGANIC</div>
+                    </div>
+                    <div class="bin bin-blue" data-type="dry">
+                        <div class="lid"></div>
+                        <div class="body">DRY / RECYCLABLE</div>
+                    </div>
+                    <div class="bin bin-red" data-type="hazard">
+                        <div class="lid"></div>
+                        <div class="body">HAZARDOUS</div>
+                    </div>
                 </div>
-                <p id="game-feedback"></p>
             </div>
+        </div>
+    </section>
 
-            <hr class="divider">
-
-            <div class="game-wrapper fade-up delay-1">
-                <h3>2. Clean Your Area - Take Action</h3>
-                <p>Beat the Clock! Clean the garbage before time runs out!</p>
+    <!-- 🎡 SECTION 16 — TRUTH OR DARE WHEEL -->
+    <section id="truth-dare">
+        <div class="container">
+            <h2 class="section-title center">Spin The Wheel — Truth or Dare</h2>
+            <p class="subtitle center">Are you a real eco-warrior? Find out!</p>
+            
+            <div class="wheel-game-grid">
+                <div class="wheel-wrapper">
+                    <canvas id="roulette-wheel" width="350" height="350"></canvas>
+                    <div class="pointer">▼</div>
+                    <button id="btn-spin" class="btn btn-primary mt-3">🌀 SPIN THE WHEEL!</button>
+                </div>
                 
-                <div class="game-hud">
-                    <div class="timer-box"><i class="fas fa-stopwatch"></i> <span id="game-timer">60</span>s</div>
-                    <button id="restart-game-btn" class="ripple-btn"><i class="fas fa-redo"></i> Restart</button>
-                </div>
+                <div class="result-area">
+                    <div id="td-result-card" class="td-card hidden">
+                        <div class="td-badge green" id="td-type">🟢 TRUTH</div>
+                        <h4 id="td-question" class="mt-3">Question goes here...</h4>
+                        
+                        <div id="td-truth-options" class="truth-options hidden mt-3">
+                            <!-- Buttons populated by JS -->
+                        </div>
+                        
+                        <div id="td-dare-actions" class="dare-actions hidden mt-3">
+                            <button id="btn-dare-accept" class="btn btn-success">✅ I Accept</button>
+                            <button id="btn-dare-skip" class="btn btn-danger ghost">😅 Skip (Coward)</button>
+                        </div>
 
-                <div class="progress-container">
-                    <div class="progress-bar" id="clean-progress"></div>
-                </div>
-                <div class="clean-game-area" id="clean-area">
-                    <div class="start-overlay" id="start-overlay">
-                        <button id="start-clean-btn" class="cta-button">Start Cleaning!</button>
-                    </div>
-                    <div class="win-message" id="clean-win-msg">
-                        <h3><i class="fas fa-trophy"></i> Mission Accomplished!</h3>
-                        <p>You helped build a Clean India!</p>
+                        <div id="td-explanation" class="explanation-box hidden mt-3"></div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="future" class="section-padding">
-        <div class="container">
-            <div class="section-header">
-                <h2>Future Scope</h2>
-                <div class="underline"></div>
-            </div>
-            <div class="future-content text-center">
-                <p>The future of waste management in India lies in the integration of technology and policy. With the advent of <strong>Smart Cities</strong>, AI-driven waste sorting, and GPS-tracked collection fleets are becoming a reality.</p>
-                <br>
-                <p>Furthermore, the strict enforcement of <strong>Extended Producer Responsibility (EPR)</strong> will force manufacturers to take back packaging waste. By 2030, the waste management sector in India is projected to double in value.</p>
-            </div>
-        </div>
-    </section>
-    <div class="volunteer-counter fade-up">
-    <h3><i class="fas fa-users"></i> Total Volunteers Contributing to Clean India Mission</h3>
-    <div class="counter-number-box">
-        <span id="live-volunteer-count">245</span>
-    </div>
-</div>
-    <section id="certificate" class="section-padding bg-dark">
-        <div class="container">
-            <div class="section-header text-white">
-                <h2>Become a Clean India Volunteer</h2>
-                <div class="underline white-line"></div>
-                <p style="color: #ccc;">Commit to the cause, submit a project, and get your Certified Badge.</p>
             </div>
             
-            <div class="tabs-container fade-up">
-                <button class="tab-btn active" data-tab="volunteer-tab">Volunteer Certificate</button>
-                <button class="tab-btn" data-tab="project-tab">Submit a Project</button>
-            </div>
-
-            <div class="cert-wrapper">
-                <form id="cert-form" class="glass-form tab-content active" data-content="volunteer-tab">
-                    <input type="text" id="volunteer-name" placeholder="Full Name" required>
-                    <div class="form-row">
-                        <select id="volunteer-state" required>
-                            <option value="">Select State</option>
-                            <option value="Andhra Pradesh">Andhra Pradesh</option>
-                            <option value="Arunachal Pradesh">Arunachal Pradesh</option>
-                            <option value="Assam">Assam</option>
-                            <option value="Bihar">Bihar</option>
-                            <option value="Chhattisgarh">Chhattisgarh</option>
-                            <option value="Goa">Goa</option>
-                            <option value="Gujarat">Gujarat</option>
-                            <option value="Haryana">Haryana</option>
-                            <option value="Himachal Pradesh">Himachal Pradesh</option>
-                            <option value="Jharkhand">Jharkhand</option>
-                            <option value="Karnataka">Karnataka</option>
-                            <option value="Kerala">Kerala</option>
-                            <option value="Madhya Pradesh">Madhya Pradesh</option>
-                            <option value="Maharashtra">Maharashtra</option>
-                            <option value="Manipur">Manipur</option>
-                            <option value="Meghalaya">Meghalaya</option>
-                            <option value="Mizoram">Mizoram</option>
-                            <option value="Nagaland">Nagaland</option>
-                            <option value="Odisha">Odisha</option>
-                            <option value="Punjab">Punjab</option>
-                            <option value="Rajasthan">Rajasthan</option>
-                            <option value="Sikkim">Sikkim</option>
-                            <option value="Tamil Nadu">Tamil Nadu</option>
-                            <option value="Telangana">Telangana</option>
-                            <option value="Tripura">Tripura</option>
-                            <option value="Uttar Pradesh">Uttar Pradesh</option>
-                            <option value="Uttarakhand">Uttarakhand</option>
-                            <option value="West Bengal">West Bengal</option>
-                            <option value="Andaman and Nicobar Islands">Andaman and Nicobar Islands</option>
-                            <option value="Chandigarh">Chandigarh</option>
-                            <option value="Dadra and Nagar Haveli and Daman and Diu">Dadra and Nagar Haveli and Daman and Diu</option>
-                            <option value="Delhi">Delhi</option>
-                            <option value="Jammu and Kashmir">Jammu and Kashmir</option>
-                            <option value="Ladakh">Ladakh</option>
-                            <option value="Lakshadweep">Lakshadweep</option>
-                            <option value="Puducherry">Puducherry</option>
-                        </select>
-                        <input type="text" id="volunteer-city" placeholder="City" required>
-                    </div>
-                    <select id="waste-type" required>
-                        <option value="">Select Waste Type Collected</option>
-                        <option value="Plastic">Plastic Waste</option>
-                        <option value="Organic">Organic/Wet Waste</option>
-                        <option value="E-Waste">Electronic Waste</option>
-                        <option value="Paper/Cardboard">Paper/Cardboard</option>
-                        <option value="Mixed">Mixed Recyclables</option>
-                    </select>
-                    <input type="number" id="waste-kg" placeholder="Amount of Waste Collected (kg)" required min="1">
-                    
-                    <div class="file-upload">
-                        <label for="volunteer-proof" class="custom-file-label">
-                            <i class="fas fa-cloud-upload-alt"></i> Upload Proof Picture
-                        </label>
-                        <input type="file" id="volunteer-proof" accept="image/*" required>
-                        <span id="file-name">No file chosen</span>
-                    </div>
-
-                    <button type="submit" class="cta-button ripple-btn">Generate Certificate <i class="fas fa-magic"></i></button>
-                </form>
-
-                <form id="project-form" class="glass-form tab-content" data-content="project-tab">
-                    <input type="text" id="project-name" placeholder="Full Name" required>
-                    <input type="text" id="project-title" placeholder="Project Title" required>
-                    <textarea id="project-desc" placeholder="Write a brief description of your engineering or artistic project..." rows="4" required></textarea>
-                    
-                    <div class="file-upload">
-                        <label for="project-proof" class="custom-file-label">
-                            <i class="fas fa-camera"></i> Upload Project Picture
-                        </label>
-                        <input type="file" id="project-proof" accept="image/*" required>
-                        <span id="proj-file-name">No file chosen</span>
-                    </div>
-
-                    <button type="submit" class="cta-button ripple-btn">Submit Project & Get Certified</button>
-                </form>
+            <div class="leaderboard-toast">
+                <i class="fa-solid fa-trophy"></i> Player 1: <span id="p1-score">0</span> pts
             </div>
         </div>
     </section>
-    
-    <div id="project-success-modal" class="modal-overlay hidden">
-        <div class="modal-content success-modal">
-            <span class="close-modal">&times;</span>
-            <i class="fas fa-check-circle success-icon"></i>
-            <h3>Congratulations!</h3>
-            <p>You are now part of our Family. Let's make Clean India.</p>
-        </div>
-    </div>
 
-    <div id="cert-modal" class="modal-overlay hidden">
-        <div class="modal-content">
-            <span class="close-modal">&times;</span>
-            <h3>Certificate Preview</h3>
-            <canvas id="cert-canvas" width="800" height="600"></canvas>
-            <div class="modal-actions">
-                <a id="download-btn" class="cta-button ripple-btn"><i class="fas fa-download"></i> Download High-Res</a>
+    <!-- 🏆 SECTION 17 — VOLUNTEER COUNTER & CERTIFICATE -->
+    <section id="volunteer">
+        <div class="volunteer-counter-wrapper">
+            <div class="counter-globe"></div>
+            <h3>Total Clean India Volunteers</h3>
+            <div class="massive-counter">
+                <span class="live-pulse"></span>
+                <span id="global-volunteers">1,024,800</span>
             </div>
         </div>
-    </div>
 
-    <div id="toast" class="toast hidden">Action Successful!</div>
-
-    <section id="about" class="section-padding">
-        <div class="container text-center">
-            <div class="section-header">
-                <h2>About Us</h2>
-                <div class="underline"></div>
+        <div class="container mt-5">
+            <div class="cert-generator glass-card">
+                <div class="tabs">
+                    <button class="tab-btn active" data-tab="cert">Volunteer Certificate</button>
+                    <button class="tab-btn" data-tab="submit">Submit a Project</button>
+                </div>
+                
+                <div class="tab-content" id="tab-cert">
+                    <div class="cert-input-row">
+                        <input type="text" id="cert-name" placeholder="Enter Your Name" class="input-modern">
+                        <button id="btn-generate-cert" class="btn btn-primary">Generate &darr;</button>
+                    </div>
+                    <canvas id="cert-canvas" width="800" height="600" class="mt-4"></canvas>
+                    <button id="btn-download-cert" class="btn btn-secondary mt-3 hidden">Download PNG</button>
+                </div>
+                
+                <div class="tab-content hidden" id="tab-submit">
+                    <p>Submit details of your local cleanup drive to be added to the National Map.</p>
+                    <div class="form-group mt-3">
+                        <input type="text" placeholder="Project Name / Location" class="input-modern full">
+                    </div>
+                    <div class="form-group">
+                        <textarea placeholder="Describe your impact..." class="input-modern full" rows="4"></textarea>
+                    </div>
+                    <button class="btn btn-primary">Submit Mission</button>
+                </div>
             </div>
-            <p style="max-width: 800px; margin: 0 auto; font-size: 1.1rem;">
-                We are students of <strong>Lovely Professional University (LPU)</strong>. This website is developed as part of our Environmental Studies academic project titled:
-                "Economic Impacts of Solid Waste Management in India: Challenges and Opportunities."
-                Solid Waste Management is not only an environmental issue but also a significant economic concern for developing countries like India. Through this project, we aim to analyze how improper waste management leads to financial burdens such as healthcare costs, land degradation, loss of recyclable resources, and municipal budget strain. At the same time, we also highlight the economic opportunities in recycling industries, waste-to-energy systems, green employment generation, and circular economy practices.
-                Our objective is to spread awareness about the economic consequences of waste mismanagement and encourage citizens to actively participate in building a cleaner and more sustainable India.
-                <br><br>
-                <b>This project is proudly developed by :- </b><br><br>
-                <b>
-                Susmit Choudhury <br>
-                Swastik Das <br><br></b>
-                Together, we designed and developed this interactive platform to demonstrate how technology, awareness, and citizen participation can contribute to sustainable waste management practices.
-            </p>
         </div>
     </section>
 
-    <section class="conclusion-banner">
-        <h2>"Waste is not waste until we waste it."</h2>
-        <p>Effective solid waste management is the cornerstone of a sustainable Indian economy.</p>
-    </section>
+    <!-- 👤 SECTION 18 — ABOUT US -->
+    <section id="about">
+        <div class="container">
+            <h2 class="section-title center">Project Creators</h2>
+            
+            <div class="profile-cards-grid mt-4">
+                <div class="flip-card profile">
+                    <div class="flip-inner">
+                        <div class="flip-front">
+                            <div class="avatar bg-green">S</div>
+                            <h3>Susmit Choudhury</h3>
+                            <p>LPU · CHE110 2026</p>
+                        </div>
+                        <div class="flip-back">
+                            <h4>Contributions</h4>
+                            <p>Data visualization logic, GIS mapping, UI Architecture, and interaction design.</p>
+                            <br>
+                            <p>3D logic, economic impact datasets, user engagement loops, and impact algorithms.</p>
+                            <div class="socials">
+                                <a href="#"><i class="fa-brands fa-linkedin"></i></a>
+                                <a href="#"><i class="fa-brands fa-github"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-    <footer>
-        <div class="footer-content">
-            <div class="footer-section">
-                <h3>Clean India</h3>
-                <p>An educational initiative to raise awareness about environmental economics.</p>
+                <div class="flip-card profile">
+                    <div class="flip-inner">
+                        <div class="flip-front">
+                            <div class="avatar bg-gold">S</div>
+                            <h3>Swastik Das</h3>
+                            <p>LPU · CHE110 2026</p>
+                        </div>
+                        <div class="flip-back">
+                            <h4>Contributions</h4>
+                            <p>Written Document , Frame the Social Media Video </p>
+                            <div class="socials">
+                                <a href="#"><i class="fa-brands fa-linkedin"></i></a>
+                                <a href="#"><i class="fa-brands fa-github"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="footer-section">
-                <h3>Quick Links</h3>
-                <ul>
-                    <li><a href="#home">Home</a></li>
-                    <li><a href="#impact">Impact</a></li>
-                    <li><a href="#solutions">Solutions</a></li>
-                    <li><a href="#games">Games</a></li>
-                </ul>
-            </div>
-            <div class="footer-section">
-                <h3>Contact</h3>
-                <p>Environmental Studies Dept.</p>
-                <p>College Project 2026</p>
+
+            <div class="project-info glass-card center mt-5">
+                <p>📚 Course: <strong>Environmental Studies (CHE110)</strong></p>
+                <p>🏛️ Institution: <strong>Lovely Professional University (LPU), Jalandhar</strong></p>
+                <p>📅 Year: <strong>2025-2026</strong></p>
+                <p>📊 Project Title: <strong>"Economic Impacts of Solid Waste Management in India"</strong></p>
             </div>
         </div>
+    </section>
+
+    <!-- 🔚 SECTION 19 — FOOTER -->
+    <footer id="footer">
+        <div class="container footer-grid">
+            <div class="footer-col brand">
+                <div class="logo">
+                    <i class="fa-solid fa-recycle green-text"></i> CLEAN <span>INDIA</span>
+                </div>
+                <p>An LPU EVS Project 2026</p>
+                <p class="mt-2 text-sm">"Waste is not waste until we waste it."</p>
+            </div>
+            
+            <div class="footer-col links">
+                <h4>Quick Links</h4>
+                <a href="#hero">Home</a>
+                <a href="#problem">The Crisis</a>
+                <a href="#map-dashboard">Map Data</a>
+                <a href="#city-dashboard">City Dashboard</a>
+            </div>
+
+            <div class="footer-col features">
+                <h4>New Features</h4>
+                <a href="#calculator">Waste Calculator</a>
+                <a href="#tracker">Recycle Map</a>
+                <a href="#infographic">Timeline Infographic</a>
+                <a href="#truth-dare">Truth or Dare</a>
+            </div>
+
+            <div class="footer-col about-ft">
+                <h4>Project Info</h4>
+                <p>Course: LPU Environmental Studies</p>
+                <p>Year: 2026</p>
+                <p>Created by: Susmit Choudhury & Swastik Das</p>
+            </div>
+        </div>
+        
         <div class="footer-bottom">
-            <p>&copy; 2026 Environmental Studies Project. All Rights Reserved.</p>
+            <p>&copy; 2026 Susmit Choudhury & Swastik Das — LPU Environmental Studies. All Rights Reserved.</p>
+        </div>
+        
+        <div class="back-to-top hidden" id="back-to-top">
+            <i class="fas fa-arrow-up"></i>
         </div>
     </footer>
 
+    <!-- Library Imports (At end for faster perceived DOM parsing, or referenced locally in actual execution) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/TextPlugin.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/particlesjs/2.2.3/particles.min.js"></script>
+    
+    <!-- Custom JS -->
     <script src="script.js"></script>
 </body>
 </html>
